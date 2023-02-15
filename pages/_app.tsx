@@ -1,12 +1,19 @@
 import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../theme";
+import { wrapper } from "../store";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
 
-  return <ChakraProvider theme={theme}>
-    <Component {...pageProps} />
-  </ChakraProvider>;
+  return (
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <Component {...props.pageProps} />
+      </ChakraProvider>
+    </Provider>
+  );
 }
 
 export default MyApp;
