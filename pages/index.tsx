@@ -1,8 +1,9 @@
 import { NextPage } from "next";
+import { Category } from "../components";
 import { wrapper, getArticles, getCategories } from "../store";
 
 const Index: NextPage = () => {
-  return <p>Welcome to Pluto, Pluto is very cool</p>;
+  return <Category />;
 };
 
 export default Index;
