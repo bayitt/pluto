@@ -1,4 +1,6 @@
-import { TCategory, TTag } from ".";
+import { TCategory, CORE_CATEGORY_FIELDS } from "./category";
+import { TTag, CORE_TAG_FIELDS } from "./tag";
+import { gql } from "@apollo/client";
 
 export type TArticle = {
   title: string;
@@ -10,3 +12,29 @@ export type TArticle = {
   content?: string;
   updated_at?: string;
 };
+
+export const CORE_ARTICLE_FIELDS = gql`
+  ${CORE_TAG_FIELDS}
+  fragment CoreArticleFields on Article {
+    title
+    slug
+    featured_image
+    created_at
+    category {
+      slug
+    }
+    tags {
+      ...CoreTagFields
+    }
+  }
+`;
+
+export const EXTENDED_ARTICLE_FIELDS = gql`
+  ${CORE_CATEGORY_FIELDS}
+  fragment ExtendedArticleFields on Article {
+    category {
+      ...CoreCategoryFields
+    }
+    content
+  }
+`;
