@@ -11,7 +11,7 @@ export const getCategories = async (dispatch: Dispatch<TAppAction>) => {
     dispatch({
       type: "GET_CATEGORIES",
       payload: [
-        { name: "All Articles", slug: "/", description: "SSKSKSKS" },
+        { name: "All Articles", slug: "/", description: "Quae plerumque" },
         ...categories,
       ],
     });

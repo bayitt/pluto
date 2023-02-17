@@ -4,7 +4,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
   Button: {
     variants: {
       primary: {
-        bg: "coyote",
+        bg: "ylnMnBlue",
         color: "white",
         fontWeight: "regular",
         borderRadius: 3,
@@ -13,6 +13,11 @@ export const components: { [key: string]: ComponentStyleConfig } = {
     },
     defaultProps: {
       variant: "primary",
+    },
+  },
+  Heading: {
+    baseStyle: {
+      fontFamily: "workSans",
     },
   },
 };

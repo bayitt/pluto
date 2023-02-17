@@ -1,7 +1,7 @@
 export const colors = {
-  honeyDew: "#DAD7CD",
-  peachYellow: "#EDD9A3",
-  buff: "#CEA07E",
-  coyote: "#846C5B",
-  eggplant: "#443742",
+  platinum: "#E0E1DD",
+  silverLakeBlue: "#778DA9",
+  ylnMnBlue: "#415A77",
+  oxfordBlue: "#1B263B",
+  richBlack: "#0D1B2A",
 };

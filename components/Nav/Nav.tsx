@@ -21,7 +21,7 @@ export const Nav = () => {
       py={7}
     >
       <Text size="sm">OLAMILEKE</Text>
-      <Flex gap={4} fontSize="15.5px">
+      <Flex gap={4} fontSize="15px">
         {renderCategories()}
       </Flex>
       <Button>Subscribe</Button>
