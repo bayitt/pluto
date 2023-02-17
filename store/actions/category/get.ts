@@ -8,7 +8,13 @@ export const getCategories = async (dispatch: Dispatch<TAppAction>) => {
 
     const categories = !data || errors ? [] : data?.getCategories;
 
-    dispatch({ type: "GET_CATEGORIES", payload: categories });
+    dispatch({
+      type: "GET_CATEGORIES",
+      payload: [
+        { name: "All Articles", slug: "/", description: "SSKSKSKS" },
+        ...categories,
+      ],
+    });
   } catch (error) {
     dispatch({ type: "GET_CATEGORIES", payload: [] });
   }
