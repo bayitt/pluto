@@ -1,3 +1,3 @@
 export * from "./Category";
-export * from "./Hero";
+export * from "./Footer";
 export * from "./Nav";

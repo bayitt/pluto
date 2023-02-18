@@ -4,7 +4,7 @@ export const components: { [key: string]: ComponentStyleConfig } = {
   Button: {
     variants: {
       primary: {
-        bg: "ylnMnBlue",
+        bg: "#143642",
         color: "white",
         fontWeight: "regular",
         borderRadius: 3,
