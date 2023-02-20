@@ -9,6 +9,7 @@ export type TArticle = {
   created_at: string;
   category: TCategory;
   tags: TTag[];
+  excerpt?: string;
   content?: string;
   updated_at?: string;
 };
@@ -20,8 +21,9 @@ export const CORE_ARTICLE_FIELDS = gql`
     slug
     featured_image
     created_at
+    excerpt
     category {
-      slug
+      uuid
     }
     tags {
       ...CoreTagFields
@@ -32,9 +34,6 @@ export const CORE_ARTICLE_FIELDS = gql`
 export const EXTENDED_ARTICLE_FIELDS = gql`
   ${CORE_CATEGORY_FIELDS}
   fragment ExtendedArticleFields on Article {
-    category {
-      ...CoreCategoryFields
-    }
     content
   }
 `;

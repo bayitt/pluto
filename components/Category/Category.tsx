@@ -17,13 +17,17 @@ export const Category = () => {
   ) as TCategory;
 
   const renderArticles = () =>
-    articles?.slice(1).map((article, index) => <Article {...article} />);
+    articles
+      ?.slice(1)
+      .map((article, index) => <Article key={index} {...article} />);
 
   return (
     <Box>
       <Container maxW="container.xl" paddingBottom={12}>
         <Nav />
-        <IndexArticle {...(articles as TArticle[])[0]} />
+        {articles && articles?.length > 0 && (
+          <IndexArticle {...(articles as TArticle[])[0]} />
+        )}
         <Flex mt={8} gap={7} wrap="wrap">
           {renderArticles()}
         </Flex>

@@ -1,16 +1,24 @@
 import { useSelector } from "react-redux";
 import { Flex, Text, Link, Button } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { TAppState, TCategory } from "../../store";
+import { TAppState } from "../../store";
 
 export const Nav = () => {
   const { categories } = useSelector<TAppState, TAppState>((state) => state);
 
   const renderCategories = () =>
     categories?.map(({ name, slug }, index) => (
-      <Link key={index} as={NextLink} href={slug}>
-        {name}
-      </Link>
+      <NextLink href={slug} passHref>
+        <Link
+          key={index}
+          href={slug}
+          fontWeight={index === 0 ? 600 : 400}
+          color={index === 0 ? "whaleBlue" : "black"}
+          textDecoration="none"
+        >
+          {name}
+        </Link>
+      </NextLink>
     ));
 
   return (

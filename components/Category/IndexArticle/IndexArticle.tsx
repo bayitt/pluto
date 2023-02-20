@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
 import {
   Flex,
   Image,
@@ -8,16 +9,23 @@ import {
   Badge,
   Heading,
 } from "@chakra-ui/react";
-import { TArticle } from "../../../store";
+import { TArticle, TAppState, TCategory } from "../../../store";
+import { parseTimestampString } from "../../../utilities";
 
 export const IndexArticle: FC<TArticle> = ({
   title,
-  category,
+  category: { uuid: categoryUuid },
   featured_image,
   tags,
+  excerpt,
   slug,
   created_at,
 }) => {
+  const { categories } = useSelector<TAppState, TAppState>((state) => state);
+  const category = categories?.find(
+    (category) => category?.uuid === categoryUuid
+  ) as TCategory;
+
   const renderTags = () =>
     tags.map(({ name }, index) => (
       <Text key={index}>#{name.toLowerCase()}</Text>
@@ -33,18 +41,15 @@ export const IndexArticle: FC<TArticle> = ({
         borderRadius="4px"
       />
       <VStack alignItems="flex-start" spacing={4}>
-        <Badge bg="platinum" p={1}>
-          TOOLS
+        <Badge bg={category?.color} p={1}>
+          {category?.name}
         </Badge>
         <Text fontSize="2xl" fontWeight="bold">
           {title}
         </Text>
-        <Text>
-          Sed luctus lobortis odio ut semper. Nam commodo facilisis suscipit.
-          Nullam convallis diam sit amet eros rutrum
-        </Text>
+        <Text>{excerpt}</Text>
         <HStack>{renderTags()}</HStack>
-        <Text>{created_at}</Text>
+        <Text>{parseTimestampString(created_at)}</Text>
       </VStack>
     </Flex>
   );

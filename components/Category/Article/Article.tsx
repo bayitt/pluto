@@ -1,14 +1,21 @@
 import { FC } from "react";
+import { useSelector } from "react-redux";
 import { Box, Image, VStack, HStack, Badge, Text } from "@chakra-ui/react";
-import { TArticle } from "../../../store";
+import { TArticle, TCategory, TAppState } from "../../../store";
+import { parseTimestampString } from "../../../utilities";
 
 export const Article: FC<TArticle> = ({
   title,
   featured_image,
-  category,
+  category: { uuid: categoryUuid },
   created_at,
   tags,
 }) => {
+  const { categories } = useSelector<TAppState, TAppState>((state) => state);
+  const category = categories?.find(
+    (category) => category?.uuid === categoryUuid
+  ) as TCategory;
+
   const renderTags = () =>
     tags.map(({ name }, index) => (
       <Text key={index}>#{name.toLowerCase()}</Text>
@@ -24,18 +31,19 @@ export const Article: FC<TArticle> = ({
         borderRadius="4px"
       />
       <VStack alignItems="flex-start" mt={5} spacing={2}>
-        <Badge bg="platinum" p={1}>
-          TOOLS
+        <Badge bg={category?.color} p={1}>
+          {category?.name}
         </Badge>
-        <Text fontSize="18px" fontWeight="bold" lineHeight="short">
+        <Text
+          fontSize="18px"
+          fontWeight="bold"
+          lineHeight="short"
+          noOfLines={2}
+        >
           {title}
         </Text>
-        <Text fontSize="sm" noOfLines={2}>
-          Sed luctus lobortis odio ut semper. Nam commodo facilisis suscipit.
-          Nullam convallis diam sit amet eros rutrum
-        </Text>
         <HStack>{renderTags()}</HStack>
-        <Text>{created_at}</Text>
+        <Text>{parseTimestampString(created_at)}</Text>
       </VStack>
     </Box>
   );
