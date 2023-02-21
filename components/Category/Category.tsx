@@ -22,7 +22,11 @@ export const Category = () => {
 
   return (
     <Box>
-      <Container maxW="container.xl" paddingBottom={12}>
+      <Container
+        maxW="container.xl"
+        paddingBottom={12}
+        px={{ base: 10, lg: 0 }}
+      >
         {articles && articles?.length > 0 && <IndexArticle />}
         <Flex mt={8} gap={7} wrap="wrap">
           {renderArticles()}

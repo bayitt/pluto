@@ -22,7 +22,13 @@ export const Article: FC<TArticle> = ({
     ));
 
   return (
-    <Box width="calc((100% - 56px)/3)">
+    <Box
+      width={{
+        base: "100%",
+        sm: "calc((100% - 28px)/2)",
+        lg: "calc((100% - 56px)/3)",
+      }}
+    >
       <Image
         src={featured_image}
         height="220px"

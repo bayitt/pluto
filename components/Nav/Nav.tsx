@@ -24,11 +24,12 @@ export const Nav = () => {
     ));
 
   return (
-    <Box color="black" py={7}>
+    <Box color="black" py={7} px={{ base: 10, lg: 0 }}>
       <Container
         maxWidth="container.xl"
         display="flex"
         justifyContent="space-between"
+        px={0}
       >
         <Text size="sm">OLAMILEKE</Text>
         <Flex gap={4} fontSize="md">

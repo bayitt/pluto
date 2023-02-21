@@ -20,7 +20,8 @@ export const Footer = () => {
 
   return (
     <Box
-      p={20}
+      py={20}
+      px={{ base: 10, lg: 0 }}
       bg="whaleBlue"
       color="white"
       position={isFixed ? "fixed" : "relative"}
@@ -31,6 +32,7 @@ export const Footer = () => {
         maxW="container.xl"
         display="flex"
         justifyContent="space-between"
+        px={0}
       >
         <HStack spacing={3}>
           <Text>&copy; {new Date().getFullYear()}</Text>
