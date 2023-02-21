@@ -19,7 +19,7 @@ export const GET_ARTICLES = gql`
 export const GET_ARTICLES_BY_CATEGORY_SLUG = gql`
   ${CORE_ARTICLE_FIELDS}
   query GqlGetArticlesByCategorySlug(
-    $category_slug: String
+    $category_slug: String!
     $page: Int
     $count: Int
   ) {
