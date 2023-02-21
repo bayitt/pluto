@@ -25,7 +25,8 @@ export const Article: FC<TArticle> = ({
     <Box
       width={{
         base: "100%",
-        sm: "calc((100% - 28px)/2)",
+        sm: "calc((100% - 20px)/2)",
+        md: "calc((100% - 56px)/3)",
         lg: "calc((100% - 56px)/3)",
       }}
     >

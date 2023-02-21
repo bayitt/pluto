@@ -32,9 +32,14 @@ export const Footer = () => {
         maxW="container.xl"
         display="flex"
         justifyContent="space-between"
+        flexDirection={{ base: "column", sm: "row" }}
         px={0}
       >
-        <HStack spacing={3}>
+        <HStack
+          spacing={3}
+          justifyContent={{ base: "center", sm: "flex-start" }}
+          mb={{ base: 5, sm: 0 }}
+        >
           <Text>&copy; {new Date().getFullYear()}</Text>
           <Text>Subscribe</Text>
           <NextLink href="/sitemap" passHref>
@@ -55,7 +60,10 @@ export const Footer = () => {
           </NextLink>
         </HStack>
 
-        <HStack spacing={6}>
+        <HStack
+          spacing={6}
+          justifyContent={{ base: "center", sm: "flex-start" }}
+        >
           <Link
             href="mailto:olamileke.f@gmail.com"
             target="_top"

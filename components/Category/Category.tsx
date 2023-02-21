@@ -25,10 +25,10 @@ export const Category = () => {
       <Container
         maxW="container.xl"
         paddingBottom={12}
-        px={{ base: 10, lg: 0 }}
+        px={{ base: 7, sm: 10, lg: 0 }}
       >
         {articles && articles?.length > 0 && <IndexArticle />}
-        <Flex mt={8} gap={7} wrap="wrap">
+        <Flex mt={{ base: 6, md: 8 }} gap={{ base: 5, md: 7 }} wrap="wrap">
           {renderArticles()}
         </Flex>
       </Container>

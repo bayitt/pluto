@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Flex, Box, Text, Link, Button, Container } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { Sidebar } from "..";
 import { TAppState } from "../../store";
 
 export const Nav = () => {
   const { categories } = useSelector<TAppState, TAppState>((state) => state);
+  const [showSidebar, setShowSidebar] = useState(false);
   const router = useRouter();
 
   const renderCategories = () =>
@@ -24,10 +27,10 @@ export const Nav = () => {
     ));
 
   return (
-    <Box color="black" py={7} px={{ base: 10, lg: 0 }}>
+    <Box color="black" py={7} px={{ base: 7, sm: 10, lg: 0 }}>
       <Container
         maxWidth="container.xl"
-        display="flex"
+        display={{ base: "none", lg: "flex" }}
         justifyContent="space-between"
         px={0}
       >
@@ -36,6 +39,15 @@ export const Nav = () => {
           {renderCategories()}
         </Flex>
         <Button>Subscribe</Button>
+      </Container>
+      <Container
+        maxWidth="container.xl"
+        display={{ base: "flex", lg: "none" }}
+        justifyContent="space-between"
+        px={0}
+      >
+        <Text size="sm">OLAMILEKE</Text>
+        <Sidebar open={showSidebar} handleOpen={setShowSidebar} />
       </Container>
     </Box>
   );
