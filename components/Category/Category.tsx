@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { TAppState, TArticle, TCategory } from "../../store";
 import { useRouter } from "next/router";
 import { Box, Container, VStack, Flex, WrapItem, Text } from "@chakra-ui/react";
-import { Nav, Footer } from "..";
 import { Article } from "./Article";
 import { IndexArticle } from "./IndexArticle";
 
@@ -24,15 +23,11 @@ export const Category = () => {
   return (
     <Box>
       <Container maxW="container.xl" paddingBottom={12}>
-        <Nav />
-        {articles && articles?.length > 0 && (
-          <IndexArticle {...(articles as TArticle[])[0]} />
-        )}
+        {articles && articles?.length > 0 && <IndexArticle />}
         <Flex mt={8} gap={7} wrap="wrap">
           {renderArticles()}
         </Flex>
       </Container>
-      <Footer />
     </Box>
   );
 };
