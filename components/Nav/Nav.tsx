@@ -27,26 +27,75 @@ export const Nav = () => {
     ));
 
   return (
-    <Box color="black" py={7} px={{ base: 7, sm: 10, lg: 0 }}>
+    <Box
+      color="black"
+      pt={7}
+      pb={{ base: 6, lg: 7 }}
+      px={{ base: 7, sm: 10, lg: 0 }}
+    >
       <Container
         maxWidth="container.xl"
         display={{ base: "none", lg: "flex" }}
         justifyContent="space-between"
+        alignItems="center"
         px={0}
       >
-        <Text size="sm">OLAMILEKE</Text>
-        <Flex gap={4} fontSize="md">
-          {renderCategories()}
-        </Flex>
+        <Text color="whaleBlue" fontWeight={600}>
+          olamileke.dev
+        </Text>
+        <Flex gap={4}>{renderCategories()}</Flex>
         <Button>Subscribe</Button>
       </Container>
       <Container
         maxWidth="container.xl"
         display={{ base: "flex", lg: "none" }}
         justifyContent="space-between"
+        alignItems="center"
         px={0}
       >
-        <Text size="sm">OLAMILEKE</Text>
+        <Text color="whaleBlue" fontSize="lg" fontWeight={600}>
+          olamileke.dev
+        </Text>
+        <Box
+          position="relative"
+          zIndex={15}
+          cursor="pointer"
+          onClick={() => {
+            setShowSidebar(!showSidebar);
+          }}
+          sx={{
+            span: {
+              width: "100%",
+              transform: "rotate(180deg)",
+            },
+            "span, span::after, span::before": {
+              position: "absolute",
+              display: "block",
+              height: "2px",
+              width: "17px",
+              left: "-17px",
+              background: "whaleBlue",
+            },
+            "span::after, span::before": {
+              top: "-8px",
+              left: 0,
+              width: "125%",
+              content: '""',
+              background: "whaleBlue",
+            },
+            "span::before": {
+              top: "8px",
+              width: "125%",
+            },
+          }}
+        >
+          <Text
+            as="span"
+            onClick={() => {
+              setShowSidebar(!showSidebar);
+            }}
+          />
+        </Box>
         <Sidebar open={showSidebar} handleOpen={setShowSidebar} />
       </Container>
     </Box>
