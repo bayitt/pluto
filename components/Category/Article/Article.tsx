@@ -1,6 +1,16 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { Box, Image, VStack, HStack, Badge, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
+import {
+  Box,
+  Image,
+  VStack,
+  HStack,
+  Badge,
+  Text,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
 import { TArticle, TCategory, TAppState } from "../../../store";
 import { parseTimestampString } from "../../../utilities";
 
@@ -8,6 +18,7 @@ export const Article: FC<TArticle> = ({
   title,
   featured_image,
   category: { uuid: categoryUuid },
+  slug,
   created_at,
   tags,
 }) => {
@@ -22,7 +33,7 @@ export const Article: FC<TArticle> = ({
     ));
 
   return (
-    <Box
+    <LinkBox
       width={{
         base: "100%",
         sm: "calc((100% - 20px)/2)",
@@ -41,17 +52,21 @@ export const Article: FC<TArticle> = ({
         <Badge bg={category?.color} p={1}>
           {category?.name}
         </Badge>
-        <Text
-          fontSize="18px"
-          fontWeight="bold"
-          lineHeight="short"
-          noOfLines={2}
-        >
-          {title}
-        </Text>
+        <NextLink href={slug.startsWith("/") ? slug : "/" + slug} passHref>
+          <LinkOverlay>
+            <Text
+              fontSize="18px"
+              fontWeight="bold"
+              lineHeight="short"
+              noOfLines={2}
+            >
+              {title}
+            </Text>
+          </LinkOverlay>
+        </NextLink>
         <HStack>{renderTags()}</HStack>
         <Text>{parseTimestampString(created_at)}</Text>
       </VStack>
-    </Box>
+    </LinkBox>
   );
 };

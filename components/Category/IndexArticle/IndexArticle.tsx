@@ -1,5 +1,15 @@
 import { useSelector } from "react-redux";
-import { Flex, Image, VStack, HStack, Text, Badge } from "@chakra-ui/react";
+import NextLink from "next/link";
+import {
+  Flex,
+  Image,
+  VStack,
+  HStack,
+  Text,
+  Badge,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
 import { TArticle, TAppState, TCategory } from "../../../store";
 import { parseTimestampString } from "../../../utilities";
 
@@ -19,10 +29,11 @@ export const IndexArticle = () => {
     ));
 
   return (
-    <Flex
+    <LinkBox
+      display="flex"
       gap={{ base: 6, md: 10 }}
       mt={5}
-      direction={{ base: "column", md: "row" }}
+      flexDirection={{ base: "column", md: "row" }}
     >
       <Image
         src={article?.featured_image}
@@ -35,15 +46,24 @@ export const IndexArticle = () => {
         <Badge bg={category?.color} p={1}>
           {category?.name}
         </Badge>
-        <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
-          {article?.title}
-        </Text>
+        <NextLink
+          href={
+            article.slug.startsWith("/") ? article.slug : "/" + article.slug
+          }
+          passHref
+        >
+          <LinkOverlay>
+            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
+              {article?.title}
+            </Text>
+          </LinkOverlay>
+        </NextLink>
         <Text fontSize={{ base: "15px", md: "md" }}>{article?.excerpt}</Text>
         <HStack fontSize={{ base: "15px", md: "md" }}>{renderTags()}</HStack>
         <Text fontSize={{ base: "15px", md: "md" }}>
           {parseTimestampString(article?.created_at)}
         </Text>
       </VStack>
-    </Flex>
+    </LinkBox>
   );
 };

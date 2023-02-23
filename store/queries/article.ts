@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
-import { CORE_ARTICLE_FIELDS } from "..";
+import { CORE_ARTICLE_FIELDS, EXTENDED_ARTICLE_FIELDS } from "..";
+
+export const GET_ARTICLE = gql`
+  ${CORE_ARTICLE_FIELDS}
+  ${EXTENDED_ARTICLE_FIELDS}
+  query GqlGetArticle($slug: String!) {
+    getArticle(input: { slug: $slug }) {
+      ...CoreArticleFields
+      ...ExtendedArticleFields
+    }
+  }
+`;
 
 export const GET_ARTICLES = gql`
   ${CORE_ARTICLE_FIELDS}
