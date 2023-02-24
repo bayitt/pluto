@@ -4,20 +4,41 @@ import { useRouter } from "next/router";
 import { Flex, Box, Text, Link, Button, Container } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { Sidebar } from "..";
-import { TAppState } from "../../store";
+import { TAppState, TArticle, TCategory } from "../../store";
 
 export const Nav = () => {
-  const { categories } = useSelector<TAppState, TAppState>((state) => state);
+  const { categories, articles } = useSelector<TAppState, TAppState>(
+    (state) => state
+  );
   const [showSidebar, setShowSidebar] = useState(false);
   const router = useRouter();
+  const isCategoryPage =
+    router.asPath === "/" || router.asPath.includes("/category/");
+  const article = articles?.[0] as TArticle;
 
   const renderCategories = () =>
-    categories?.map(({ name, slug }, index) => (
+    categories?.map(({ name, slug, uuid }, index) => (
       <NextLink key={index} href={slug} passHref>
         <Link
           href={slug}
-          fontWeight={router.asPath === slug ? 600 : 400}
-          color={router.asPath === slug ? "whaleBlue" : "black"}
+          fontWeight={
+            isCategoryPage
+              ? router.asPath === slug
+                ? 600
+                : 400
+              : article.category.uuid === uuid
+              ? 600
+              : 400
+          }
+          color={
+            isCategoryPage
+              ? router.asPath === slug
+                ? "whaleBlue"
+                : "black"
+              : article.category.uuid === uuid
+              ? "whaleBlue"
+              : "black"
+          }
           _hover={{ textDecoration: "none" }}
           _focus={{ boxShadow: "none" }}
         >
@@ -30,7 +51,7 @@ export const Nav = () => {
     <Box
       color="black"
       pt={7}
-      pb={{ base: 6, lg: 7 }}
+      pb={{ base: 6, lg: 4 }}
       px={{ base: 7, sm: 10, lg: 0 }}
     >
       <Container
@@ -40,9 +61,16 @@ export const Nav = () => {
         alignItems="center"
         px={0}
       >
-        <Text color="whaleBlue" fontWeight={600}>
-          olamileke.dev
-        </Text>
+        <NextLink href="/" passHref>
+          <Link
+            _hover={{ textDecoration: "none" }}
+            _focus={{ boxShadow: "none" }}
+          >
+            <Text color="whaleBlue" fontWeight={600}>
+              olamileke.dev
+            </Text>
+          </Link>
+        </NextLink>
         <Flex gap={4}>{renderCategories()}</Flex>
         <Button>Subscribe</Button>
       </Container>

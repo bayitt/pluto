@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Box, Container, VStack, Flex, WrapItem, Text } from "@chakra-ui/react";
 import { Article } from "./Article";
 import { IndexArticle } from "./IndexArticle";
+import { Nav } from "..";
 
 export const Category = () => {
   const { categories, articles } = useSelector<TAppState, TAppState>(
@@ -22,6 +23,7 @@ export const Category = () => {
 
   return (
     <Box>
+      <Nav />
       <Container
         maxW="container.xl"
         paddingBottom={12}
