@@ -1,6 +1,34 @@
 import { Dispatch } from "react";
 import { TAppAction } from "../..";
-import { gqlGetArticles, gqlGetCategoryArticles } from "./gql";
+import { gqlGetArticle, gqlGetArticles, gqlGetCategoryArticles } from "./gql";
+
+export const getArticle = async (
+  dispatch: Dispatch<TAppAction>,
+  variables: { slug: string },
+  markdownToHtml: (markdown: string) => Promise<string>
+) => {
+  try {
+    const { data, errors } = await gqlGetArticle({
+      slug: variables.slug.startsWith("/") ? variables.slug : variables.slug,
+    });
+    const articles =
+      !data || errors
+        ? []
+        : [
+            {
+              ...data?.getArticle,
+              content: await markdownToHtml(
+                data?.getArticle?.content as string
+              ),
+            },
+          ];
+
+    dispatch({ type: "GET_ARTICLES", payload: articles });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "GET_ARTICLES", payload: [] });
+  }
+};
 
 export const getArticles = async (
   dispatch: Dispatch<TAppAction>,

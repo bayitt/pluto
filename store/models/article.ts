@@ -32,7 +32,6 @@ export const CORE_ARTICLE_FIELDS = gql`
 `;
 
 export const EXTENDED_ARTICLE_FIELDS = gql`
-  ${CORE_CATEGORY_FIELDS}
   fragment ExtendedArticleFields on Article {
     content
   }
