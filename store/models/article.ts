@@ -34,5 +34,6 @@ export const CORE_ARTICLE_FIELDS = gql`
 export const EXTENDED_ARTICLE_FIELDS = gql`
   fragment ExtendedArticleFields on Article {
     content
+    updated_at
   }
 `;
