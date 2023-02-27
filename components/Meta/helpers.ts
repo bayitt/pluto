@@ -45,7 +45,7 @@ export const getMetaInformation = (
     },
     {
       name: "og:url",
-      value: (process.env.NEXT_APP_APP_URL ?? "") + resource?.slug,
+      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
     },
     {
       name: "twitter:title",
@@ -65,7 +65,7 @@ export const getMetaInformation = (
     },
     {
       name: "twitter:url",
-      value: (process.env.NEXT_APP_APP_URL ?? "") + resource?.slug,
+      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
     },
     {
       name: "twitter:card",

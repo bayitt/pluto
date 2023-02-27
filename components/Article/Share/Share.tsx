@@ -13,6 +13,38 @@ export const Share = () => {
   const TwitterIcon = chakra(BsTwitter);
   const LinkedinIcon = chakra(AiFillLinkedin);
 
+  const handleShareClick = (
+    type: "email" | "facebook" | "linkedin" | "twitter"
+  ) => {
+    const articleUrl =
+      (process.env.NEXT_PUBLIC_APP_URL ?? "") +
+      (article?.slug?.startsWith("/") ? article?.slug : "/" + article?.slug);
+    let url: string;
+
+    switch (type) {
+      case "email":
+        url = `mailto:you@example.com?subject=${article?.title}&body=${articleUrl}`;
+        break;
+      case "linkedin":
+        url = `https://www.linkedin.com/sharing/share-offsite/?url=${articleUrl}`;
+        break;
+      case "twitter":
+        url = `https://twitter.com/intent/tweet?text=${article?.title}&url=${articleUrl}`;
+        break;
+      case "facebook":
+        url = `https://web.facebook.com/sharer/sharer.php?u=${articleUrl}`;
+        break;
+      default:
+        url = `https://twitter.com/intent/tweet?text=${article?.title}&url=${articleUrl}`;
+    }
+
+    window.open(
+      url,
+      "Popup",
+      "location,status,scrollbars,resizable,width=500,height=500"
+    );
+  };
+
   return (
     <Flex
       width="100%"
@@ -25,16 +57,60 @@ export const Share = () => {
       <VStack spacing={2}>
         <Text>Share this article</Text>
         <Flex gap="12px">
-          <Circle size="50px" border="1px solid" borderColor="rgba(0,0,0,0.1)">
+          <Circle
+            size="50px"
+            cursor="pointer"
+            background="transparent"
+            _hover={{ background: "rgba(0,0,0,0.06)" }}
+            border="1px solid"
+            borderColor="rgba(0,0,0,0.1)"
+            transition="all 0.3s ease-in"
+            onClick={() => {
+              handleShareClick("facebook");
+            }}
+          >
             <FacebookIcon fontSize="xl" />
           </Circle>
-          <Circle size="50px" border="1px solid" borderColor="rgba(0,0,0,0.1)">
+          <Circle
+            size="50px"
+            cursor="pointer"
+            background="transparent"
+            _hover={{ background: "rgba(0,0,0,0.06)" }}
+            border="1px solid"
+            borderColor="rgba(0,0,0,0.1)"
+            transition="all 0.3s ease-in"
+            onClick={() => {
+              handleShareClick("email");
+            }}
+          >
             <EmailIcon fontSize="2xl" />
           </Circle>
-          <Circle size="50px" border="1px solid" borderColor="rgba(0,0,0,0.1)">
+          <Circle
+            size="50px"
+            cursor="pointer"
+            background="transparent"
+            _hover={{ background: "rgba(0,0,0,0.06)" }}
+            border="1px solid"
+            borderColor="rgba(0,0,0,0.1)"
+            transition="all 0.3s ease-in"
+            onClick={() => {
+              handleShareClick("twitter");
+            }}
+          >
             <TwitterIcon fontSize="xl" />
           </Circle>
-          <Circle size="50px" border="1px solid" borderColor="rgba(0,0,0,0.1)">
+          <Circle
+            size="50px"
+            cursor="pointer"
+            background="transparent"
+            _hover={{ background: "rgba(0,0,0,0.06)" }}
+            border="1px solid"
+            borderColor="rgba(0,0,0,0.1)"
+            transition="all 0.3s ease-in"
+            onClick={() => {
+              handleShareClick("linkedin");
+            }}
+          >
             <LinkedinIcon fontSize="2xl" />
           </Circle>
         </Flex>
