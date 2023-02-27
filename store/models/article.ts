@@ -9,6 +9,7 @@ export type TArticle = {
   created_at: string;
   category: TCategory;
   tags: TTag[];
+  related_articles?: TArticle[];
   excerpt?: string;
   content?: string;
   updated_at?: string;
@@ -32,7 +33,11 @@ export const CORE_ARTICLE_FIELDS = gql`
 `;
 
 export const EXTENDED_ARTICLE_FIELDS = gql`
+  ${CORE_ARTICLE_FIELDS}
   fragment ExtendedArticleFields on Article {
+    related_articles {
+      ...CoreArticleFields
+    }
     content
     updated_at
   }

@@ -26,7 +26,7 @@ export const Nav = () => {
               ? router.asPath === slug
                 ? 600
                 : 400
-              : article.category.uuid === uuid
+              : article?.category?.uuid === uuid
               ? 600
               : 400
           }
@@ -35,7 +35,7 @@ export const Nav = () => {
               ? router.asPath === slug
                 ? "whaleBlue"
                 : "black"
-              : article.category.uuid === uuid
+              : article?.category?.uuid === uuid
               ? "whaleBlue"
               : "black"
           }

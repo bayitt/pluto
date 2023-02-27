@@ -7,8 +7,10 @@ import {
   Text,
   Image,
   Container,
+  SimpleGrid,
+  GridItem,
 } from "@chakra-ui/react";
-import { Nav, Meta } from "..";
+import { Nav, Meta, RelatedArticle } from "..";
 import { TAppState, TArticle, TCategory } from "../../store";
 import { parseTimestampString } from "../../utilities";
 
@@ -24,6 +26,13 @@ export const Article = () => {
   const renderTags = () =>
     article?.tags?.map(({ name }, index) => (
       <Text key={index}>#{name.toLowerCase()}</Text>
+    ));
+
+  const renderRelatedArticles = () =>
+    article?.related_articles?.map((article, index) => (
+      <GridItem key={index}>
+        <RelatedArticle {...article} />
+      </GridItem>
     ));
 
   return (
@@ -71,7 +80,6 @@ export const Article = () => {
             },
             a: {
               color: "blue.500",
-              textDecoration: "underline",
             },
             img: {
               position: "relative",
@@ -84,6 +92,14 @@ export const Article = () => {
             },
           }}
         />
+        <Box mt={5}>
+          <Text mb={5} fontWeight="bold">
+            More from {category?.name}
+          </Text>
+          <SimpleGrid columns={2} spacing={4}>
+            {renderRelatedArticles()}
+          </SimpleGrid>
+        </Box>
       </Container>
     </Box>
   );

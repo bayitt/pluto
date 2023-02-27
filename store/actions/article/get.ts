@@ -6,6 +6,7 @@ export const getArticle = async (
   dispatch: Dispatch<TAppAction>,
   variables: { slug: string }
 ) => {
+  console.log(variables);
   try {
     const { data, errors } = await gqlGetArticle({
       slug: variables.slug.startsWith("/") ? variables.slug : variables.slug,

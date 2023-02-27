@@ -1,5 +1,6 @@
 export const parseTimestampString = (timestamp: string) => {
   const [date, time] = timestamp.split("T");
+  if (!time) return "";
   let parsedTime = time.slice(0, -2);
   const [hours, minutes] = parsedTime.split(":");
 
