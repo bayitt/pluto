@@ -4,9 +4,9 @@ import { gqlGetArticle, gqlGetArticles, gqlGetCategoryArticles } from "./gql";
 
 export const getArticle = async (
   dispatch: Dispatch<TAppAction>,
-  variables: { slug: string },
-  markdownToHtml: (markdown: string) => Promise<string>
+  variables: { slug: string }
 ) => {
+  console.log(variables);
   try {
     const { data, errors } = await gqlGetArticle({
       slug: variables.slug.startsWith("/") ? variables.slug : variables.slug,
@@ -17,9 +17,6 @@ export const getArticle = async (
         : [
             {
               ...data?.getArticle,
-              content: await markdownToHtml(
-                data?.getArticle?.content as string
-              ),
             },
           ];
 

@@ -1,0 +1,92 @@
+import { TArticle, TCategory } from "../../store";
+
+export const getMetaInformation = (
+  isCategoryPage: boolean,
+  resource: TCategory | TArticle
+) => {
+  const metas = [
+    {
+      name: "title",
+      value: isCategoryPage
+        ? (resource as TCategory)?.name === "All Articles"
+          ? "Olamileke's Blog"
+          : "Olamileke's Blog - " + (resource as TCategory)?.name
+        : (resource as TArticle)?.title,
+    },
+    {
+      name: "description",
+      value: isCategoryPage
+        ? (resource as TCategory)?.description
+        : (resource as TArticle)?.content?.slice(0, 150),
+    },
+    {
+      name: "og:type",
+      value: "website",
+    },
+    {
+      name: "og:site_name",
+      value: "Olamileke's Blog",
+    },
+    {
+      name: "og:title",
+      value: isCategoryPage
+        ? (resource as TCategory)?.name
+        : (resource as TArticle)?.title,
+    },
+    {
+      name: "og:description",
+      value: isCategoryPage
+        ? (resource as TCategory)?.description
+        : (resource as TArticle)?.content?.slice(0, 150),
+    },
+    {
+      name: "og:image",
+      value: isCategoryPage ? "" : (resource as TArticle)?.featured_image,
+    },
+    {
+      name: "og:url",
+      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
+    },
+    {
+      name: "twitter:title",
+      value: isCategoryPage
+        ? (resource as TCategory)?.name
+        : (resource as TArticle)?.title,
+    },
+    {
+      name: "twitter:description",
+      value: isCategoryPage
+        ? (resource as TCategory)?.description
+        : (resource as TArticle)?.content?.slice(0, 150),
+    },
+    {
+      name: "twitter:image",
+      value: isCategoryPage ? "" : (resource as TArticle)?.featured_image,
+    },
+    {
+      name: "twitter:url",
+      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
+    },
+    {
+      name: "twitter:card",
+      value: "summary_large_image",
+    },
+    {
+      name: "twitter:site",
+      value: "@f_olamileke",
+    },
+  ];
+
+  if (!isCategoryPage) {
+    metas.push({
+      name: "article:published_time",
+      value: (resource as TArticle)?.created_at,
+    });
+    metas.push({
+      name: "article:modified_time",
+      value: (resource as TArticle)?.updated_at,
+    });
+  }
+
+  return metas;
+};
