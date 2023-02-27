@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { Flex, Box, Text, Link, Button, Container } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { Sidebar } from "..";
-import { TAppState, TArticle, TCategory } from "../../store";
+import { TAppState, TArticle } from "../../store";
 
 export const Nav = () => {
   const { categories, articles } = useSelector<TAppState, TAppState>(
     (state) => state
   );
   const [showSidebar, setShowSidebar] = useState(false);
+
+  useEffect(() => {
+    Router.events.on("routeChangeComplete", () => {
+      window.screen.width <= 1024 && setShowSidebar(false);
+    });
+  }, []);
+
   const router = useRouter();
   const isCategoryPage =
     router.asPath === "/" || router.asPath.includes("/category/");
@@ -81,9 +88,22 @@ export const Nav = () => {
         alignItems="center"
         px={0}
       >
-        <Text color="whaleBlue" fontSize="lg" fontWeight={600}>
-          olamileke.dev
-        </Text>
+        <NextLink href="/" passHref>
+          <Link
+            _hover={{ textDecoration: "none" }}
+            _focus={{ boxShadow: "none" }}
+          >
+            <Text
+              color="whaleBlue"
+              position="relative"
+              top="3px"
+              fontSize="lg"
+              fontWeight={600}
+            >
+              olamileke.dev
+            </Text>
+          </Link>
+        </NextLink>
         <Box
           position="relative"
           zIndex={15}

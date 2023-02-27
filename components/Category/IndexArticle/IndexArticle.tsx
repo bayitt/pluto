@@ -58,7 +58,10 @@ export const IndexArticle = () => {
             </Text>
           </LinkOverlay>
         </NextLink>
-        <Text fontSize={{ base: "15px", md: "md" }}>{article?.excerpt}</Text>
+        <Text
+          fontSize={{ base: "15px", md: "md" }}
+          dangerouslySetInnerHTML={{ __html: article?.excerpt ?? "" }}
+        />
         <HStack fontSize={{ base: "15px", md: "md" }}>{renderTags()}</HStack>
         <Text fontSize={{ base: "15px", md: "md" }}>
           {parseTimestampString(article?.created_at)}

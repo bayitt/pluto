@@ -24,9 +24,13 @@ export const RelatedArticle: FC<TArticle> = ({
     ));
 
   return (
-    <LinkBox display="flex" gap={4}>
+    <LinkBox
+      display="flex"
+      flexDirection={{ base: "column", md: "row" }}
+      gap={{ base: 4 }}
+    >
       <Image
-        width="40%"
+        width={{ base: "100%", md: "40%" }}
         height="150px"
         src={featured_image}
         borderRadius="2px"

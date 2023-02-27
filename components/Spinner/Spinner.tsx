@@ -13,22 +13,25 @@ export const Spinner = () => {
   }, []);
 
   const handleScroll = () => {
+    const threshhold = window.screen.width <= 480 ? 228 : 184;
     const {
       document: {
         documentElement: { scrollHeight, scrollTop, clientHeight },
       },
     } = window;
-    if (scrollHeight - (scrollTop + clientHeight) < 184) setIsAtBottom(true);
+    if (scrollHeight - (scrollTop + clientHeight) < threshhold)
+      setIsAtBottom(true);
     else setIsAtBottom(false);
   };
 
   return (
     <ChakraSpinner
+      zIndex={20}
       size="md"
       position="fixed"
       color={isAtBottom ? "white" : "whaleBlue"}
       bottom="5vh"
-      right="50px"
+      right={{ base: "35px", lg: "50px" }}
       transition="all 0.3s ease-in"
     />
   );

@@ -45,7 +45,12 @@ export const Article = () => {
           <Badge bg={category?.color} p={1}>
             {category?.name}
           </Badge>
-          <Text fontSize="2xl" textAlign="center" fontWeight="bold" width="50%">
+          <Text
+            fontSize="2xl"
+            textAlign="center"
+            fontWeight="bold"
+            width={{ base: "80%", md: "50%" }}
+          >
             {article?.title}
           </Text>
           <HStack>{renderTags()}</HStack>
@@ -57,7 +62,7 @@ export const Article = () => {
       </Box>
       <Container
         maxWidth="container.lg"
-        px={0}
+        px={{ base: 7, sm: 10, lg: 0 }}
         position="relative"
         top="-108px"
         marginBottom="-108px"
@@ -65,7 +70,7 @@ export const Article = () => {
       >
         <Image
           src={article?.featured_image}
-          height="60vh"
+          height={{ base: "30vh", md: "36vh", lg: "60vh" }}
           objectFit="cover"
           width="100%"
           borderRadius="4px"
@@ -86,7 +91,7 @@ export const Article = () => {
               position: "relative",
               left: "10%",
               width: "80% !important",
-              height: "400px !important",
+              height: { base: "300px !important", md: "400px !important" },
               objectFit: "cover",
               margin: "20px 0px",
               borderRadius: "4px",
@@ -94,14 +99,20 @@ export const Article = () => {
           }}
         />
         <Share />
-        <Box>
-          <Text mb={5} fontWeight="bold">
-            More from {category?.name}
-          </Text>
-          <SimpleGrid columns={2} spacing={4}>
-            {renderRelatedArticles()}
-          </SimpleGrid>
-        </Box>
+        {article?.related_articles && article?.related_articles?.length > 0 && (
+          <Box mt={{ base: 5, md: 0 }}>
+            <Text
+              mb={5}
+              fontWeight={{ base: "normal", md: "bold" }}
+              textAlign={{ base: "center", md: "left" }}
+            >
+              More from {category?.name}
+            </Text>
+            <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
+              {renderRelatedArticles()}
+            </SimpleGrid>
+          </Box>
+        )}
       </Container>
     </Box>
   );
