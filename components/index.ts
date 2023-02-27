@@ -5,3 +5,4 @@ export * from "./Meta";
 export * from "./Nav";
 export * from "./RelatedArticle";
 export * from "./Sidebar";
+export * from "./Spinner";

@@ -11,6 +11,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { Nav, Meta, RelatedArticle } from "..";
+import { Share } from "./Share";
 import { TAppState, TArticle, TCategory } from "../../store";
 import { parseTimestampString } from "../../utilities";
 
@@ -92,7 +93,8 @@ export const Article = () => {
             },
           }}
         />
-        <Box mt={5}>
+        <Share />
+        <Box>
           <Text mb={5} fontWeight="bold">
             More from {category?.name}
           </Text>
