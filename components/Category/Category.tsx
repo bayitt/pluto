@@ -1,20 +1,15 @@
 import { useSelector } from "react-redux";
-import { TAppState, TArticle, TCategory } from "../../store";
+import { TAppState, TCategory } from "../../store";
 import { useRouter } from "next/router";
-import { Box, Container, VStack, Flex, WrapItem, Text } from "@chakra-ui/react";
+import { Box, Container, Button, Flex } from "@chakra-ui/react";
 import { Article } from "./Article";
 import { IndexArticle } from "./IndexArticle";
 import { Nav, Meta } from "..";
 
 export const Category = () => {
-  const { categories, articles } = useSelector<TAppState, TAppState>(
+  const { articles, pagination, loading } = useSelector<TAppState, TAppState>(
     (state) => state
   );
-
-  const router = useRouter();
-  const category = categories?.find(
-    (category) => category?.slug === router.asPath
-  ) as TCategory;
 
   const renderArticles = () =>
     articles
@@ -34,6 +29,18 @@ export const Category = () => {
         <Flex mt={{ base: 6, md: 8 }} gap={{ base: 5, md: 7 }} wrap="wrap">
           {renderArticles()}
         </Flex>
+        {pagination && pagination?.currentPage < pagination?.lastPage && (
+          <Flex justify="center" mt={10} mb={2}>
+            <Button
+              variant="secondary"
+              loadingText="More Articles"
+              isLoading={loading}
+              spinnerPlacement="end"
+            >
+              More Articles
+            </Button>
+          </Flex>
+        )}
       </Container>
     </Box>
   );

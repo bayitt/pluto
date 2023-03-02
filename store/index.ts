@@ -13,19 +13,33 @@ import {
   TArticleAction,
   categoryReducer,
   TCategoryAction,
+  paginationReducer,
+  TPaginationAction,
 } from "./reducers";
 
-export type TAppState = {
-  categories?: TCategory[];
-  articles?: TArticle[];
+export type TPagination = {
+  currentPage: number;
+  lastPage: number;
 };
 
-export type TAppAction = TAppReducerAction | TArticleAction | TCategoryAction;
+export type TAppState = {
+  loading?: boolean;
+  categories?: TCategory[];
+  articles?: TArticle[];
+  pagination?: TPagination;
+};
+
+export type TAppAction =
+  | TAppReducerAction
+  | TArticleAction
+  | TCategoryAction
+  | TPaginationAction;
 
 const stateReducer = combineReducers({
   appReducer,
   articleReducer,
   categoryReducer,
+  paginationReducer,
 });
 
 const makeStore = (context: Context) => createStore(stateReducer, {});
