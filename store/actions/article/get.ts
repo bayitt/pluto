@@ -6,7 +6,6 @@ export const getArticle = async (
   dispatch: Dispatch<TAppAction>,
   variables: { slug: string }
 ) => {
-  console.log(variables);
   try {
     const { data, errors } = await gqlGetArticle({
       slug: variables.slug.startsWith("/") ? variables.slug : variables.slug,
@@ -52,6 +51,8 @@ export const getCategoryArticles = async (
   dispatch: Dispatch<TAppAction>,
   variables: { category_slug: string; page: number; count: number }
 ) => {
+  dispatch({ type: "SET_LOADING", payload: true });
+
   try {
     const { data, errors } = await gqlGetCategoryArticles({
       ...variables,
@@ -62,9 +63,16 @@ export const getCategoryArticles = async (
 
     const articles =
       !data || errors ? [] : data?.getArticlesByCategorySlug?.articles;
+    const pagination = data?.getArticlesByCategorySlug?.pagination ?? {
+      currentPage: 1,
+      lastPage: 1,
+    };
 
+    dispatch({ type: "SET_PAGINATION", payload: pagination });
     dispatch({ type: "GET_ARTICLES", payload: articles });
   } catch (error) {
     dispatch({ type: "GET_ARTICLES", payload: [] });
   }
+
+  dispatch({ type: "SET_LOADING", payload: false });
 };
