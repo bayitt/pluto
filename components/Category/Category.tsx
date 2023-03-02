@@ -1,25 +1,43 @@
-import { useSelector } from "react-redux";
-import { TAppState, TArticle, TCategory } from "../../store";
+import { FC, Dispatch } from "react";
+import { connect, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { Box, Container, VStack, Flex, WrapItem, Text } from "@chakra-ui/react";
+import {
+  getArticles,
+  getCategoryArticles,
+  TAppAction,
+  TAppState,
+} from "../../store";
+import { Box, Container, Button, Flex } from "@chakra-ui/react";
 import { Article } from "./Article";
 import { IndexArticle } from "./IndexArticle";
 import { Nav, Meta } from "..";
 
-export const Category = () => {
-  const { categories, articles } = useSelector<TAppState, TAppState>(
+const CategoryComponent: FC<{ dispatch: Dispatch<TAppAction> }> = ({
+  dispatch,
+}) => {
+  const { articles, pagination, loading } = useSelector<TAppState, TAppState>(
     (state) => state
   );
-
   const router = useRouter();
-  const category = categories?.find(
-    (category) => category?.slug === router.asPath
-  ) as TCategory;
+  const isCategoryPage = router.asPath.includes("/category/");
 
   const renderArticles = () =>
     articles
       ?.slice(1)
       .map((article, index) => <Article key={index} {...article} />);
+
+  const getMoreArticles = () => {
+    isCategoryPage
+      ? getCategoryArticles(dispatch, {
+          category_slug: router?.query?.category_slug as string,
+          page: (pagination?.currentPage as number) + 1,
+          count: 10,
+        })
+      : getArticles(dispatch, {
+          page: (pagination?.currentPage as number) + 1,
+          count: 10,
+        });
+  };
 
   return (
     <Box>
@@ -27,14 +45,31 @@ export const Category = () => {
       <Nav />
       <Container
         maxW="container.xl"
-        paddingBottom={12}
+        paddingBottom={
+          pagination && pagination?.currentPage < pagination?.lastPage ? 12 : 16
+        }
         px={{ base: 7, sm: 10, lg: 0 }}
       >
         {articles && articles?.length > 0 && <IndexArticle />}
         <Flex mt={{ base: 6, md: 8 }} gap={{ base: 5, md: 7 }} wrap="wrap">
           {renderArticles()}
         </Flex>
+        {pagination && pagination?.currentPage < pagination?.lastPage && (
+          <Flex justify="center" mt={10} mb={2}>
+            <Button
+              variant="secondary"
+              loadingText="More Articles"
+              isLoading={loading}
+              spinnerPlacement="end"
+              onClick={getMoreArticles}
+            >
+              More Articles
+            </Button>
+          </Flex>
+        )}
       </Container>
     </Box>
   );
 };
+
+export const Category = connect()(CategoryComponent);

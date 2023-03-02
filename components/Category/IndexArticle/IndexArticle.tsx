@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import NextLink from "next/link";
 import {
-  Flex,
+  Box,
   Image,
   VStack,
   HStack,
@@ -58,7 +58,7 @@ export const IndexArticle = () => {
             </Text>
           </LinkOverlay>
         </NextLink>
-        <Text
+        <Box
           fontSize={{ base: "15px", md: "md" }}
           dangerouslySetInnerHTML={{ __html: article?.excerpt ?? "" }}
         />
