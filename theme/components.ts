@@ -6,6 +6,10 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       fontWeight: "regular",
       borderRadius: 3,
       fontSize: "sm",
+
+      _focus: {
+        boxShadow: "none",
+      },
     },
     variants: {
       primary: {

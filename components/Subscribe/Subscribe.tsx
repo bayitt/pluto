@@ -55,10 +55,13 @@ const SubscribeComponent: FC<TSubscribe> = ({ isOpen, onClose, dispatch }) => {
             onChange={handleChange}
             placeholder="Enter your email"
             _placeholder={{ fontWeight: "normal" }}
+            border="1px solid"
+            borderColor="#A9B3CE"
+            focusBorderColor="#A9B3CE"
           />
           {isSuccess && (
-            <FormHelperText mt={3} color="grey.800">
-              You have subscribed successfully
+            <FormHelperText mt={3} color="gray.800">
+              You have subscribed successfully!
             </FormHelperText>
           )}
         </FormControl>
