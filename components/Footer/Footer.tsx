@@ -1,14 +1,24 @@
 import NextLink from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { Box, HStack, Container, Text, Link, chakra } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Container,
+  Text,
+  Link,
+  chakra,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { HiMail } from "react-icons/hi";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { BsTwitter } from "react-icons/bs";
 import { TAppState } from "../../store";
+import { Subscribe } from "..";
 
 export const Footer = () => {
   const { articles } = useSelector<TAppState, TAppState>((state) => state);
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
   const isFixed =
     (router.asPath === "/" || router.asPath.includes("category/")) &&
@@ -41,7 +51,9 @@ export const Footer = () => {
           mb={{ base: 5, sm: 0 }}
         >
           <Text>&copy; {new Date().getFullYear()}</Text>
-          <Text>Subscribe</Text>
+          <Text cursor="pointer" onClick={onOpen}>
+            Subscribe
+          </Text>
           <NextLink href="/sitemap" passHref>
             <Link
               _hover={{ textDecoration: "none" }}
@@ -107,6 +119,7 @@ export const Footer = () => {
             </Link>
           </NextLink>
         </HStack>
+        <Subscribe isOpen={isOpen} onClose={onClose} />
       </Container>
     </Box>
   );
