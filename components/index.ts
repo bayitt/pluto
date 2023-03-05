@@ -6,3 +6,5 @@ export * from "./Nav";
 export * from "./RelatedArticle";
 export * from "./Sidebar";
 export * from "./Spinner";
+export * from "./Subscribe";
+export * from "./Wrappers";

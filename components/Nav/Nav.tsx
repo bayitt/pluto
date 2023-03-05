@@ -1,9 +1,17 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Router, { useRouter } from "next/router";
-import { Flex, Box, Text, Link, Button, Container } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Text,
+  Link,
+  Button,
+  Container,
+  useDisclosure,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
-import { Sidebar } from "..";
+import { Sidebar, Subscribe } from "..";
 import { TAppState, TArticle } from "../../store";
 
 export const Nav = () => {
@@ -11,6 +19,7 @@ export const Nav = () => {
     (state) => state
   );
   const [showSidebar, setShowSidebar] = useState(false);
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
     Router.events.on("routeChangeComplete", () => {
@@ -79,7 +88,9 @@ export const Nav = () => {
           </Link>
         </NextLink>
         <Flex gap={4}>{renderCategories()}</Flex>
-        <Button>Subscribe</Button>
+        <Button fontSize="14.5px" onClick={onOpen}>
+          Subscribe
+        </Button>
       </Container>
       <Container
         maxWidth="container.xl"
@@ -145,6 +156,7 @@ export const Nav = () => {
           />
         </Box>
         <Sidebar open={showSidebar} handleOpen={setShowSidebar} />
+        <Subscribe isOpen={isOpen} onClose={onClose} />
       </Container>
     </Box>
   );
