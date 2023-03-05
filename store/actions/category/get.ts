@@ -2,7 +2,7 @@ import { Dispatch } from "react";
 import { TAppAction, TCategory } from "../..";
 import { gqlGetCategories } from "./gql";
 
-export const getCategories = async (dispatch: Dispatch<TAppAction>) => {
+export const getCategories = async (dispatch?: Dispatch<TAppAction>) => {
   try {
     const { data, errors } = await gqlGetCategories();
 
@@ -14,7 +14,7 @@ export const getCategories = async (dispatch: Dispatch<TAppAction>) => {
       slug: "/category" + category.slug,
     }));
 
-    dispatch({
+    dispatch?.({
       type: "GET_CATEGORIES",
       payload: [
         {
@@ -26,7 +26,9 @@ export const getCategories = async (dispatch: Dispatch<TAppAction>) => {
         ...categories,
       ],
     });
+
+    return categories;
   } catch (error) {
-    dispatch({ type: "GET_CATEGORIES", payload: [] });
+    dispatch?.({ type: "GET_CATEGORIES", payload: [] });
   }
 };

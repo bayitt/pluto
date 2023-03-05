@@ -61,7 +61,7 @@ const SubscribeComponent: FC<TSubscribe> = ({ isOpen, onClose, dispatch }) => {
           />
           {isSuccess && (
             <FormHelperText mt={3} color="gray.800">
-              You have subscribed successfully!
+              You are subscribed successfully!
             </FormHelperText>
           )}
         </FormControl>

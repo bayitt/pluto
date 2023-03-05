@@ -1,6 +1,11 @@
 import { Dispatch } from "react";
-import { TAppAction } from "../..";
-import { gqlGetArticle, gqlGetArticles, gqlGetCategoryArticles } from "./gql";
+import { TAppAction, TArticle } from "../..";
+import {
+  gqlGetArticle,
+  gqlGetArticles,
+  gqlGetCategoryArticles,
+  gqlGetSitemapArticles,
+} from "./gql";
 
 export const getArticle = async (
   dispatch: Dispatch<TAppAction>,
@@ -75,4 +80,14 @@ export const getCategoryArticles = async (
   }
 
   dispatch({ type: "SET_LOADING", payload: false });
+};
+
+export const getSitemapArticles = async (): Promise<TArticle[]> => {
+  try {
+    const { data } = await gqlGetSitemapArticles();
+
+    return data?.getArticles?.articles ?? [];
+  } catch (error) {
+    return [];
+  }
 };

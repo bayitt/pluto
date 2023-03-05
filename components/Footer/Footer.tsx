@@ -54,14 +54,6 @@ export const Footer = () => {
           <Text cursor="pointer" onClick={onOpen}>
             Subscribe
           </Text>
-          <NextLink href="/sitemap" passHref>
-            <Link
-              _hover={{ textDecoration: "none" }}
-              _focus={{ boxShadow: "none" }}
-            >
-              Sitemap
-            </Link>
-          </NextLink>
           <NextLink href="/rss" passHref>
             <Link
               _hover={{ textDecoration: "none" }}
