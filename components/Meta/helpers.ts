@@ -1,3 +1,4 @@
+import parse from "html-react-parser";
 import { TArticle, TCategory } from "../../store";
 
 export const getMetaInformation = (
@@ -17,7 +18,9 @@ export const getMetaInformation = (
       name: "description",
       value: isCategoryPage
         ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content?.slice(0, 150),
+        : (resource as TArticle)?.content
+            ?.slice(0, 155)
+            ?.replace(/<[^>]+>/g, "") + "...",
     },
     {
       name: "og:type",
@@ -37,7 +40,9 @@ export const getMetaInformation = (
       name: "og:description",
       value: isCategoryPage
         ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content?.slice(0, 150),
+        : (resource as TArticle)?.content
+            ?.slice(0, 155)
+            ?.replace(/<[^>]+>/g, "") + "...",
     },
     {
       name: "og:image",
@@ -45,7 +50,11 @@ export const getMetaInformation = (
     },
     {
       name: "og:url",
-      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
+      value:
+        (process.env.NEXT_PUBLIC_APP_URL ?? "") +
+        (resource?.slug?.startsWith("/")
+          ? resource?.slug
+          : "/" + resource?.slug),
     },
     {
       name: "twitter:title",
@@ -57,7 +66,9 @@ export const getMetaInformation = (
       name: "twitter:description",
       value: isCategoryPage
         ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content?.slice(0, 150),
+        : (resource as TArticle)?.content
+            ?.slice(0, 155)
+            ?.replace(/<[^>]+>/g, "") + "...",
     },
     {
       name: "twitter:image",
@@ -65,7 +76,11 @@ export const getMetaInformation = (
     },
     {
       name: "twitter:url",
-      value: (process.env.NEXT_PUBLIC_APP_URL ?? "") + resource?.slug,
+      value:
+        (process.env.NEXT_PUBLIC_APP_URL ?? "") +
+        resource?.slug?.startsWith("/")
+          ? resource?.slug
+          : "/" + resource?.slug,
     },
     {
       name: "twitter:card",
@@ -84,7 +99,7 @@ export const getMetaInformation = (
     });
     metas.push({
       name: "article:modified_time",
-      value: (resource as TArticle)?.updated_at,
+      value: (resource as TArticle)?.updated_at as string,
     });
   }
 
