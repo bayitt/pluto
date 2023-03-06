@@ -11,12 +11,20 @@ export default ArticlePage;
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ query }) => {
-      await Promise.all([
+      const response = await Promise.all([
         getCategories(store.dispatch),
         getArticle(store.dispatch, { slug: query?.article_slug as string }),
       ]);
+
+      const props = { categories: [], articles: [] };
+
+      if (!response[1])
+        return {
+          notFound: true,
+        };
+
       return {
-        props: { categories: [], articles: [] },
+        props,
       };
     }
 );

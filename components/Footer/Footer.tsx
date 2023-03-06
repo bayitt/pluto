@@ -50,18 +50,10 @@ export const Footer = () => {
           justifyContent={{ base: "center", sm: "flex-start" }}
           mb={{ base: 5, sm: 0 }}
         >
-          <Text>&copy; {new Date().getFullYear()}</Text>
-          <Text cursor="pointer" onClick={onOpen}>
+          <Text>olamileke.dev &copy; {new Date().getFullYear()}</Text>
+          {/* <Text cursor="pointer" onClick={onOpen}>
             Subscribe
-          </Text>
-          <NextLink href="/rss" passHref>
-            <Link
-              _hover={{ textDecoration: "none" }}
-              _focus={{ boxShadow: "none" }}
-            >
-              RSS
-            </Link>
-          </NextLink>
+          </Text> */}
         </HStack>
 
         <HStack

@@ -25,8 +25,10 @@ export const getArticle = async (
           ];
 
     dispatch({ type: "GET_ARTICLES", payload: articles });
+    return data?.getArticle;
   } catch (error) {
     dispatch({ type: "GET_ARTICLES", payload: [] });
+    return null;
   }
 };
 
@@ -75,11 +77,13 @@ export const getCategoryArticles = async (
 
     dispatch({ type: "SET_PAGINATION", payload: pagination });
     dispatch({ type: "GET_ARTICLES", payload: articles });
+    dispatch({ type: "SET_LOADING", payload: false });
+    return data?.getArticlesByCategorySlug?.articles;
   } catch (error) {
     dispatch({ type: "GET_ARTICLES", payload: [] });
+    dispatch({ type: "SET_LOADING", payload: false });
+    return null;
   }
-
-  dispatch({ type: "SET_LOADING", payload: false });
 };
 
 export const getSitemapArticles = async (): Promise<TArticle[]> => {

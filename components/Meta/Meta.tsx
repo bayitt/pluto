@@ -27,5 +27,11 @@ export const Meta = () => {
       }
     );
 
-  return <Head>{renderMetas()}</Head>;
+  return (
+    <Head>
+      <link rel="icon" href="/favicon.png" />
+      <link rel="canonical" href="https://blog.olamileke.dev/" />
+      {renderMetas()}
+    </Head>
+  );
 };
