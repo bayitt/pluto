@@ -42,3 +42,10 @@ export const EXTENDED_ARTICLE_FIELDS = gql`
     updated_at
   }
 `;
+
+export const SITEMAP_ARTICLE_FIELDS = gql`
+  fragment SitemapArticleFields on Article {
+    slug
+    updated_at
+  }
+`;

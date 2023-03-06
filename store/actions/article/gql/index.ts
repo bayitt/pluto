@@ -2,6 +2,7 @@ import {
   GET_ARTICLE,
   GET_ARTICLES,
   GET_ARTICLES_BY_CATEGORY_SLUG,
+  GET_SITEMAP_ARTICLES,
 } from "../../..";
 import { createClient } from "../../../../utilities";
 
@@ -16,3 +17,6 @@ export const gqlGetCategoryArticles = (variables: {
   page: number;
   count: number;
 }) => createClient().query({ query: GET_ARTICLES_BY_CATEGORY_SLUG, variables });
+
+export const gqlGetSitemapArticles = () =>
+  createClient().query({ query: GET_SITEMAP_ARTICLES });

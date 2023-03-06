@@ -11,7 +11,7 @@ export default CategoryPage;
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req, res, query, ...etc }) => {
-      await Promise.all([
+      const response = await Promise.all([
         getCategories(store.dispatch),
         getCategoryArticles(store.dispatch, {
           category_slug: query?.category_slug as string,
@@ -19,6 +19,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
           count: 10,
         }),
       ]);
+
+      if (!response[1])
+        return {
+          notFound: true,
+        };
+
       return {
         props: { categories: [], articles: [] },
       };
