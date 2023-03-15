@@ -17,7 +17,9 @@ export const Share = () => {
     type: "email" | "facebook" | "linkedin" | "twitter"
   ) => {
     const articleUrl =
-      (process.env.NEXT_PUBLIC_APP_URL ?? "") +
+      (process.env.NEXT_PUBLIC_APP_URL ??
+        window.__env__.NEXT_PUBLIC_APP_URL ??
+        "") +
       (article?.slug?.startsWith("/") ? article?.slug : "/" + article?.slug);
     let url: string;
 

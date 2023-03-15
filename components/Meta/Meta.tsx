@@ -29,7 +29,10 @@ export const Meta = () => {
 
   return (
     <Head>
-      <link rel="icon" href="/favicon.png" />
+      <link
+        rel="icon"
+        href="https://res.cloudinary.com/olamileke/image/upload/v1678913345/noir/assets/favicon_zanzdl.png"
+      />
       {renderMetas()}
     </Head>
   );
