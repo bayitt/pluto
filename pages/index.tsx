@@ -16,7 +16,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
         getArticles(store.dispatch, { page: 1, count: 10 }),
       ]);
       return {
-        props: { categories: [], articles: [] },
+        props: {
+          categories: [],
+          articles: [],
+          loading: false,
+          pagination: { currentPage: 1, lastPage: 1 },
+        },
       };
     }
 );
