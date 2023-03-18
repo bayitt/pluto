@@ -15,6 +15,14 @@ export const components: { [key: string]: ComponentStyleConfig } = {
       primary: {
         bg: "whaleBlue",
         color: "white",
+
+        _loading: {
+          opacity: 1,
+
+          _hover: {
+            bg: "whaleBlue",
+          },
+        },
       },
       secondary: {
         border: "1px solid",

@@ -50,7 +50,7 @@ export const Share = () => {
   return (
     <Flex
       width="100%"
-      my={5}
+      mt={5}
       alignItems="center"
       justifyContent="center"
       gap="12px"
