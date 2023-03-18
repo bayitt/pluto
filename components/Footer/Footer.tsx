@@ -1,24 +1,14 @@
 import NextLink from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import {
-  Box,
-  HStack,
-  Container,
-  Text,
-  Link,
-  chakra,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, HStack, Container, Text, Link, chakra } from "@chakra-ui/react";
 import { HiMail } from "react-icons/hi";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { BsTwitter } from "react-icons/bs";
 import { TAppState } from "../../store";
-import { Subscribe } from "..";
 
 export const Footer = () => {
   const { articles } = useSelector<TAppState, TAppState>((state) => state);
-  const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
   const isFixed =
     (router.asPath === "/" || router.asPath.includes("category/")) &&
@@ -30,7 +20,7 @@ export const Footer = () => {
 
   return (
     <Box
-      py={20}
+      py={{ base: 12, sm: 20 }}
       px={{ base: 10, lg: 0 }}
       bg="whaleBlue"
       color="white"
@@ -45,16 +35,12 @@ export const Footer = () => {
         flexDirection={{ base: "column", sm: "row" }}
         px={0}
       >
-        <HStack
-          spacing={3}
-          justifyContent={{ base: "center", sm: "flex-start" }}
+        <Text
           mb={{ base: 5, sm: 0 }}
+          textAlign={{ base: "center", sm: "left" }}
         >
-          <Text>olamileke.dev &copy; {new Date().getFullYear()}</Text>
-          {/* <Text cursor="pointer" onClick={onOpen}>
-            Subscribe
-          </Text> */}
-        </HStack>
+          olamileke.dev &copy; {new Date().getFullYear()}
+        </Text>
 
         <HStack
           spacing={6}
@@ -103,7 +89,6 @@ export const Footer = () => {
             </Link>
           </NextLink>
         </HStack>
-        <Subscribe isOpen={isOpen} onClose={onClose} />
       </Container>
     </Box>
   );

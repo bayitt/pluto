@@ -2,12 +2,14 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { Box, VStack, Link, Button } from "@chakra-ui/react";
+import { Box, VStack, Link, Button, useDisclosure } from "@chakra-ui/react";
 import { TAppState } from "../../store";
 import { TSidebar } from "./types";
+import { Subscribe } from "..";
 
 export const Sidebar: FC<TSidebar> = ({ open, handleOpen }) => {
   const { categories } = useSelector<TAppState, TAppState>((state) => state);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
 
   const renderCategories = () =>
@@ -42,7 +44,7 @@ export const Sidebar: FC<TSidebar> = ({ open, handleOpen }) => {
       >
         <VStack spacing={5} alignItems="flex-start">
           {renderCategories()}
-          <Button>Subscribe</Button>
+          <Button onClick={onOpen}>Subscribe</Button>
         </VStack>
       </Box>
       <Box
@@ -59,6 +61,7 @@ export const Sidebar: FC<TSidebar> = ({ open, handleOpen }) => {
           handleOpen(false);
         }}
       />
+      <Subscribe isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };

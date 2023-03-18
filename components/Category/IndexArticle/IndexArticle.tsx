@@ -37,7 +37,7 @@ export const IndexArticle = () => {
     >
       <Image
         src={article?.featured_image}
-        height="320px"
+        height={{ base: "220px", sm: "320px" }}
         objectFit="cover"
         width={{ base: "100%", md: "50%" }}
         borderRadius="4px"
@@ -53,13 +53,17 @@ export const IndexArticle = () => {
           passHref
         >
           <LinkOverlay>
-            <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold">
+            <Text
+              fontSize={{ base: "18px", sm: "xl", md: "2xl" }}
+              fontWeight="bold"
+            >
               {article?.title}
             </Text>
           </LinkOverlay>
         </NextLink>
         <Box
           fontSize={{ base: "15px", md: "md" }}
+          display={{ base: "none", sm: "block" }}
           dangerouslySetInnerHTML={{ __html: article?.excerpt ?? "" }}
         />
         <HStack fontSize={{ base: "15px", md: "md" }}>{renderTags()}</HStack>

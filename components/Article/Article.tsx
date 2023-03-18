@@ -46,10 +46,10 @@ export const Article = () => {
             {category?.name}
           </Badge>
           <Text
-            fontSize="2xl"
+            fontSize={{ base: "xl", sm: "2xl" }}
             textAlign="center"
             fontWeight="bold"
-            width={{ base: "80%", md: "50%" }}
+            width={{ base: "90%", sm: "80%", md: "50%" }}
           >
             {article?.title}
           </Text>
@@ -100,7 +100,7 @@ export const Article = () => {
         />
         <Share />
         {article?.related_articles && article?.related_articles?.length > 0 && (
-          <Box mt={{ base: 5, md: 0 }}>
+          <Box mt={5} mb={{ base: 2, lg: 5 }}>
             <Text
               mb={5}
               fontWeight={{ base: "normal", md: "bold" }}
