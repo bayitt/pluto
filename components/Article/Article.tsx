@@ -87,7 +87,7 @@ export const Article = () => {
               },
             },
             p: {
-              margin: "15px 0",
+              margin: "12px 0",
             },
             br: {
               display: "none",

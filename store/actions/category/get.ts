@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import { TAppAction, TCategory } from "../..";
+import { capitalize } from "../../../utilities";
 import { gqlGetCategories } from "./gql";
 
 export const getCategories = async (dispatch?: Dispatch<TAppAction>) => {
@@ -10,6 +11,7 @@ export const getCategories = async (dispatch?: Dispatch<TAppAction>) => {
     const colors = ["#E0E1DD", "#E0D2C3", "#F1DABF", "#C0D6DF"];
     categories = categories.map((category, index) => ({
       ...category,
+      name: capitalize(category.name),
       color: colors[index],
       slug: "/category" + category.slug,
     }));
@@ -21,7 +23,8 @@ export const getCategories = async (dispatch?: Dispatch<TAppAction>) => {
           uuid: "",
           name: "All Articles",
           slug: "/",
-          description: "Quae plerumque",
+          description:
+            "Documenting everything I am learning and building. One article at a time.",
         },
         ...categories,
       ],
@@ -29,6 +32,7 @@ export const getCategories = async (dispatch?: Dispatch<TAppAction>) => {
 
     return categories;
   } catch (error) {
+    console.log(error);
     dispatch?.({ type: "GET_CATEGORIES", payload: [] });
   }
 };
