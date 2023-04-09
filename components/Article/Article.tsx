@@ -81,11 +81,20 @@ export const Article = () => {
             __html: article?.content as string,
           }}
           sx={{
+            "@media(max-width: 1024px)": {
+              p: {
+                margin: "10px 0 !important",
+              },
+            },
             p: {
-              margin: "15px 0",
+              margin: "12px 0",
+            },
+            br: {
+              display: "none",
             },
             a: {
               color: "blue.500",
+              textDecoration: "underline",
             },
             img: {
               position: "relative",
