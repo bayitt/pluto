@@ -24,8 +24,9 @@ export const Footer = () => {
       px={{ base: 10, lg: 0 }}
       bg="whaleBlue"
       color="white"
-      position={isFixed ? "fixed" : "relative"}
+      position={{ mdLg: isFixed ? "fixed" : "relative" }}
       bottom={0}
+      mt={{ base: isFixed ? "200px" : "0px", mdLg: "0px" }}
       width="100%"
     >
       <Container
