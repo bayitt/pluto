@@ -11,7 +11,7 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body style={{ minHeight: "100vh" }}>
           <Main />
           <NextScript />
         </body>
