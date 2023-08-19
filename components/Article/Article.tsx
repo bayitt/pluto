@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Box,
@@ -10,10 +11,14 @@ import {
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
+import hljs from "highlight.js";
+import javascript from "highlight.js/lib/languages/javascript";
+import "highlight.js/styles/atom-one-dark.css";
 import { Nav, Meta, RelatedArticle } from "..";
 import { Share } from "./Share";
 import { TAppState, TArticle, TCategory } from "../../store";
 import { parseTimestampString } from "../../utilities";
+hljs.registerLanguage("javascript", javascript);
 
 export const Article = () => {
   const { categories, articles } = useSelector<TAppState, TAppState>(
@@ -23,6 +28,10 @@ export const Article = () => {
   const category = categories?.find(
     (category) => category?.uuid === article?.category?.uuid
   ) as TCategory;
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
 
   const renderTags = () =>
     article?.tags?.map(({ name }, index) => (
@@ -95,6 +104,12 @@ export const Article = () => {
             a: {
               color: "blue.500",
               textDecoration: "underline",
+            },
+            pre: {
+              margin: "-24px 0",
+            },
+            "pre code.hljs": {
+              padding: "0 1em !important",
             },
             img: {
               position: "relative",

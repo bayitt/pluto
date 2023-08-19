@@ -13,9 +13,7 @@ export const getArticle = async (
 ) => {
   try {
     const { data, errors } = await gqlGetArticle({
-      slug: variables.slug.startsWith("/")
-        ? variables.slug
-        : "/" + variables.slug,
+      slug: variables.slug.startsWith("/") ? variables.slug : variables.slug,
     });
     const articles =
       !data || errors

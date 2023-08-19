@@ -1,5 +1,5 @@
-import { FC, Dispatch } from "react";
-import { connect, useSelector } from "react-redux";
+import { Dispatch } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import {
   getArticles,
@@ -12,12 +12,11 @@ import { Article } from "./Article";
 import { IndexArticle } from "./IndexArticle";
 import { Nav, Meta } from "..";
 
-const CategoryComponent: FC<{ dispatch: Dispatch<TAppAction> }> = ({
-  dispatch,
-}) => {
+export const Category = () => {
   const { articles, pagination, loading } = useSelector<TAppState, TAppState>(
     (state) => state
   );
+  const dispatch: Dispatch<TAppAction> = useDispatch();
   const router = useRouter();
   const isCategoryPage = router.asPath.includes("/category/");
 
@@ -71,5 +70,3 @@ const CategoryComponent: FC<{ dispatch: Dispatch<TAppAction> }> = ({
     </Box>
   );
 };
-
-export const Category = connect()(CategoryComponent);
