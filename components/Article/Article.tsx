@@ -95,8 +95,14 @@ export const Article = () => {
                 margin: "10px 0 !important",
               },
             },
+            h3: {
+              fontSize: "20px",
+            },
             p: {
               margin: "12px 0",
+            },
+            "h3 + p": {
+              marginTop: "0px !important",
             },
             br: {
               display: "none",
@@ -107,6 +113,8 @@ export const Article = () => {
             },
             pre: {
               margin: "-24px 0",
+              // maxHeight: "70vh",
+              // overflowY: "auto",
             },
             "pre code.hljs": {
               padding: "0 1em !important",
