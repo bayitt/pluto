@@ -11,14 +11,17 @@ import {
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
+import Router from "next/router";
 import hljs from "highlight.js";
 import javascript from "highlight.js/lib/languages/javascript";
-import "highlight.js/styles/atom-one-dark.css";
+import php from "highlight.js/lib/languages/php";
+import "highlight.js/styles/atom-one-dark-reasonable.css";
 import { Nav, Meta, RelatedArticle } from "..";
 import { Share } from "./Share";
 import { TAppState, TArticle, TCategory } from "../../store";
 import { parseTimestampString } from "../../utilities";
 hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("php", php);
 
 export const Article = () => {
   const { categories, articles } = useSelector<TAppState, TAppState>(
@@ -31,6 +34,10 @@ export const Article = () => {
 
   useEffect(() => {
     hljs.highlightAll();
+
+    Router.events.on("routeChangeComplete", () => {
+      hljs.highlightAll();
+    });
   }, []);
 
   const renderTags = () =>
@@ -112,12 +119,13 @@ export const Article = () => {
               textDecoration: "underline",
             },
             pre: {
-              margin: "-24px 0",
-              // maxHeight: "70vh",
-              // overflowY: "auto",
+              display: "flex",
+              fontFamily: "Work Sans, sans-serif",
+              lineHeight: 1.75,
             },
             "pre code.hljs": {
               padding: "0 1em !important",
+              width: "100%",
             },
             img: {
               position: "relative",
