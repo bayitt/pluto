@@ -12,7 +12,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
-import NextLink from "next/link";
 import { Sidebar } from "../Sidebar";
 import { NavProps } from "./types";
 
@@ -32,33 +31,32 @@ export const Nav: FC<NavProps> = ({ categories }) => {
 
   const renderCategories = () =>
     [...categories].map(({ name, slug, uuid }, index) => (
-      <NextLink key={index} href={slug} passHref>
-        <Link
-          href={slug}
-          fontWeight={
-            isCategoryPage
-              ? pathname === slug
-                ? 600
-                : 400
-              : "abcd" === uuid
+      <Link
+        key={index}
+        href={slug}
+        fontWeight={
+          isCategoryPage
+            ? pathname === slug
               ? 600
               : 400
-          }
-          color={
-            isCategoryPage
-              ? pathname === slug
-                ? "whaleBlue"
-                : "black"
-              : "abcd" === uuid
+            : "abcd" === uuid
+            ? 600
+            : 400
+        }
+        color={
+          isCategoryPage
+            ? pathname === slug
               ? "whaleBlue"
               : "black"
-          }
-          _hover={{ textDecoration: "none" }}
-          _focus={{ boxShadow: "none" }}
-        >
-          {name}
-        </Link>
-      </NextLink>
+            : "abcd" === uuid
+            ? "whaleBlue"
+            : "black"
+        }
+        _hover={{ textDecoration: "none" }}
+        _focus={{ boxShadow: "none" }}
+      >
+        {name}
+      </Link>
     ));
 
   return (

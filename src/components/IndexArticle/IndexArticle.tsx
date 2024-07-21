@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { FC } from "react";
 import NextLink from "next/link";
 import {
   Box,
@@ -10,21 +10,20 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
-import { TArticle, TAppState, TCategory } from "../../../store";
-import { parseTimestampString } from "../../../utilities";
+import { parseTimestampString } from "../../utilities";
+import { TArticle } from "../../models";
 
-export const IndexArticle = () => {
-  const { categories, articles } = useSelector<TAppState, TAppState>(
-    (state) => state
-  );
-
-  const article = articles?.[0] as TArticle;
-  const category = categories?.find(
-    (category) => category?.uuid === article?.category?.uuid
-  ) as TCategory;
-
+export const IndexArticle: FC<TArticle> = ({
+  title,
+  slug,
+  tags,
+  excerpt,
+  featured_image,
+  category,
+  created_at,
+}) => {
   const renderTags = () =>
-    article?.tags?.map(({ name }, index) => (
+    tags.map(({ name }, index) => (
       <Text key={index}>#{name.toLowerCase()}</Text>
     ));
 
@@ -36,7 +35,7 @@ export const IndexArticle = () => {
       flexDirection={{ base: "column", md: "row" }}
     >
       <Image
-        src={article?.featured_image}
+        src={featured_image}
         height={{ base: "220px", sm: "320px" }}
         objectFit="cover"
         width={{ base: "100%", md: "50%" }}
@@ -46,29 +45,25 @@ export const IndexArticle = () => {
         <Badge bg={category?.color} p={1}>
           {category?.name}
         </Badge>
-        <NextLink
-          href={
-            article.slug.startsWith("/") ? article.slug : "/" + article.slug
-          }
-          passHref
+        <LinkOverlay
+          as={NextLink}
+          href={slug.startsWith("/") ? slug : "/" + slug}
         >
-          <LinkOverlay>
-            <Text
-              fontSize={{ base: "18px", sm: "xl", md: "2xl" }}
-              fontWeight="bold"
-            >
-              {article?.title}
-            </Text>
-          </LinkOverlay>
-        </NextLink>
+          <Text
+            fontSize={{ base: "18px", sm: "xl", md: "2xl" }}
+            fontWeight="bold"
+          >
+            {title}
+          </Text>
+        </LinkOverlay>
         <Box
           fontSize={{ base: "15px", md: "md" }}
           display={{ base: "none", sm: "block" }}
-          dangerouslySetInnerHTML={{ __html: article?.excerpt ?? "" }}
+          dangerouslySetInnerHTML={{ __html: excerpt ?? "" }}
         />
         <HStack fontSize={{ base: "15px", md: "md" }}>{renderTags()}</HStack>
         <Text fontSize={{ base: "15px", md: "md" }}>
-          {parseTimestampString(article?.created_at)}
+          {parseTimestampString(created_at)}
         </Text>
       </VStack>
     </LinkBox>

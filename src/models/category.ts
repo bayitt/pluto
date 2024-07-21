@@ -5,7 +5,7 @@ export type TCategory = {
   name: string;
   slug: string;
   description: string;
-  color?: string;
+  color: string;
 };
 
 export const CORE_CATEGORY_FIELDS = gql`
@@ -14,5 +14,6 @@ export const CORE_CATEGORY_FIELDS = gql`
     name
     slug
     description
+    color
   }
 `;

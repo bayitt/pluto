@@ -13,22 +13,22 @@ const capitalize = (param: string) => {
 };
 
 export const getCategories = async (): Promise<
-  (TCategory & { is_active: boolean })[]
+  (TCategory & { is_active?: boolean })[]
 > => {
   const { data, errors } = await getClient().query({ query: GET_CATEGORIES });
 
   if (!data?.getCategories || errors) return [];
 
-  let categories = data.getCategories;
-  const colors = ["#E0E1DD", "#E0D2C3", "#F1DABF", "#C0D6DF"];
-  categories = categories.map((category, index) => ({
-    ...category,
-    name: capitalize(category.name),
-    color: colors[index],
-    slug: "/category" + category.slug,
-  }));
+  const categories = JSON.parse(
+    JSON.stringify(
+      data.getCategories.map(({ name, ...rest }) => ({
+        ...rest,
+        name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+      }))
+    )
+  );
 
-  categories.unshift({ name: "All Articles", slug: "/", uuid: "" });
+  categories.unshift({ name: "All Articles", slug: "/", uuid: "", color: "" });
 
   return categories;
 };

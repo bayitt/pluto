@@ -13,7 +13,7 @@ export const Category: FC<CategoryProps> = ({ articles }) => {
 
   const renderArticles = () =>
     articles
-      ?.slice(1)
+      .slice(1)
       .map((article, index) => <Article key={index} {...article} />);
 
   return (
@@ -23,7 +23,7 @@ export const Category: FC<CategoryProps> = ({ articles }) => {
         paddingBottom={12}
         px={{ base: 7, sm: 10, lg: 0 }}
       >
-        {articles && articles?.length > 0 && <IndexArticle />}
+        {articles && articles.length > 0 && <IndexArticle {...articles[0]} />}
         <Flex mt={{ base: 6, md: 8 }} gap={{ base: 5, md: 7 }} wrap="wrap">
           {renderArticles()}
         </Flex>

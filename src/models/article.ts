@@ -24,7 +24,9 @@ export const CORE_ARTICLE_FIELDS = gql`
     created_at
     excerpt
     category {
+      name
       uuid
+      color
     }
     tags {
       ...CoreTagFields

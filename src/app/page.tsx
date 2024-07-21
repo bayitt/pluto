@@ -5,7 +5,7 @@ export default async function Page() {
   const categoriesData = getCategories();
   const articlesData = getArticles({ page: 1, count: 10 });
 
-  const [categories, articles] = await Promise.all([
+  const [categories, { articles }] = await Promise.all([
     categoriesData,
     articlesData,
   ]);
@@ -14,6 +14,8 @@ export default async function Page() {
     ...categories[activeCategoryIndex],
     is_active: true,
   };
+
+  console.log(categories);
 
   return (
     <>

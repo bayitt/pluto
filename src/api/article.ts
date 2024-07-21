@@ -5,13 +5,13 @@ import { GET_ARTICLES } from "./queries";
 export const getArticles = async (variables: {
   page: number;
   count: number;
-}): Promise<TArticle[]> => {
+}): Promise<{ articles: TArticle[] }> => {
   const { data, errors } = await getClient().query({
     query: GET_ARTICLES,
     variables,
   });
 
-  if (!data?.getArticles || errors) return [];
+  if (!data?.getArticles || errors) return { articles: [] };
 
   return data?.getArticles;
 };
