@@ -12,7 +12,9 @@ const capitalize = (param: string) => {
   return paramSplits.join(" ");
 };
 
-export const getCategories = async (): Promise<TCategory[]> => {
+export const getCategories = async (): Promise<
+  (TCategory & { is_active: boolean })[]
+> => {
   const { data, errors } = await getClient().query({ query: GET_CATEGORIES });
 
   if (!data?.getCategories || errors) return [];
@@ -25,6 +27,8 @@ export const getCategories = async (): Promise<TCategory[]> => {
     color: colors[index],
     slug: "/category" + category.slug,
   }));
+
+  categories.unshift({ name: "All Articles", slug: "/", uuid: "" });
 
   return categories;
 };

@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { usePathname } from "next/navigation";
 import { Box, Container, Button, Flex } from "@chakra-ui/react";

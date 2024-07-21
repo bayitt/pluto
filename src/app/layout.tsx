@@ -1,14 +1,11 @@
 import React from "react";
-import { getCategories } from "../api";
-import { Footer, Nav, Provider } from "../components";
+import { Footer, Provider } from "../components";
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const categories = await getCategories();
-
   return (
     <html lang="en">
       <head>
@@ -20,7 +17,6 @@ export default async function RootLayout({
       </head>
       <body>
         <Provider>
-          <Nav categories={categories} />
           {children}
           <Footer />
         </Provider>

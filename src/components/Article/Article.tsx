@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
 import NextLink from "next/link";
 import {
   Box,
@@ -11,7 +10,7 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
-import { TArticle, TCategory, TAppState } from "../../../store";
+import { TArticle } from "../../models";
 import { parseTimestampString } from "../../../utilities";
 
 export const Article: FC<TArticle> = ({
@@ -22,11 +21,6 @@ export const Article: FC<TArticle> = ({
   created_at,
   tags,
 }) => {
-  const { categories } = useSelector<TAppState, TAppState>((state) => state);
-  const category = categories?.find(
-    (category) => category?.uuid === categoryUuid
-  ) as TCategory;
-
   const renderTags = () =>
     tags.map(({ name }, index) => (
       <Text key={index}>#{name.toLowerCase()}</Text>

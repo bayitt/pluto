@@ -31,37 +31,35 @@ export const Nav: FC<NavProps> = ({ categories }) => {
   const isCategoryPage = pathname === "/" || pathname.includes("/category/");
 
   const renderCategories = () =>
-    [{ name: "All Articles", slug: "/", uuid: "" }, ...categories].map(
-      ({ name, slug, uuid }, index) => (
-        <NextLink key={index} href={slug} passHref>
-          <Link
-            href={slug}
-            fontWeight={
-              isCategoryPage
-                ? pathname === slug
-                  ? 600
-                  : 400
-                : "abcd" === uuid
+    [...categories].map(({ name, slug, uuid }, index) => (
+      <NextLink key={index} href={slug} passHref>
+        <Link
+          href={slug}
+          fontWeight={
+            isCategoryPage
+              ? pathname === slug
                 ? 600
                 : 400
-            }
-            color={
-              isCategoryPage
-                ? pathname === slug
-                  ? "whaleBlue"
-                  : "black"
-                : "abcd" === uuid
+              : "abcd" === uuid
+              ? 600
+              : 400
+          }
+          color={
+            isCategoryPage
+              ? pathname === slug
                 ? "whaleBlue"
                 : "black"
-            }
-            _hover={{ textDecoration: "none" }}
-            _focus={{ boxShadow: "none" }}
-          >
-            {name}
-          </Link>
-        </NextLink>
-      )
-    );
+              : "abcd" === uuid
+              ? "whaleBlue"
+              : "black"
+          }
+          _hover={{ textDecoration: "none" }}
+          _focus={{ boxShadow: "none" }}
+        >
+          {name}
+        </Link>
+      </NextLink>
+    ));
 
   return (
     <Box
