@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, FC } from "react";
+import { FC, useState, useEffect } from "react";
 import Router from "next/router";
-import { useRouter, usePathname } from "next/navigation";
 import {
   Flex,
   Box,
@@ -25,33 +24,13 @@ export const Nav: FC<NavProps> = ({ categories }) => {
     });
   }, []);
 
-  const router = useRouter();
-  const pathname = usePathname();
-  const isCategoryPage = pathname === "/" || pathname.includes("/category/");
-
   const renderCategories = () =>
-    [...categories].map(({ name, slug, uuid }, index) => (
+    [...categories].map(({ name, slug, is_active }, index) => (
       <Link
         key={index}
         href={slug}
-        fontWeight={
-          isCategoryPage
-            ? pathname === slug
-              ? 600
-              : 400
-            : "abcd" === uuid
-            ? 600
-            : 400
-        }
-        color={
-          isCategoryPage
-            ? pathname === slug
-              ? "whaleBlue"
-              : "black"
-            : "abcd" === uuid
-            ? "whaleBlue"
-            : "black"
-        }
+        fontWeight={is_active ? 600 : 400}
+        color={is_active ? "whaleBlue" : "black"}
         _hover={{ textDecoration: "none" }}
         _focus={{ boxShadow: "none" }}
       >

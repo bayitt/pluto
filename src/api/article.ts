@@ -1,6 +1,20 @@
 import { TArticle } from "../models";
 import { getClient } from "./client";
-import { GET_ARTICLES, GET_ARTICLES_BY_CATEGORY_SLUG } from "./queries";
+import {
+  GET_ARTICLE,
+  GET_ARTICLES,
+  GET_ARTICLES_BY_CATEGORY_SLUG,
+} from "./queries";
+
+export const getArticle = async (slug: string): Promise<TArticle> => {
+  const parsedSlug = slug.startsWith("/") ? slug : "/" + slug;
+  const { data } = await getClient().query({
+    query: GET_ARTICLE,
+    variables: { slug: parsedSlug },
+  });
+
+  return data?.getArticle;
+};
 
 export const getArticles = async (variables: {
   page: number;
