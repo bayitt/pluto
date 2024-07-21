@@ -15,3 +15,24 @@ export const GET_ARTICLES = gql`
     }
   }
 `;
+
+export const GET_ARTICLES_BY_CATEGORY_SLUG = gql`
+  ${CORE_ARTICLE_FIELDS}
+  query GqlGetArticlesByCategorySlug(
+    $category_slug: String!
+    $page: Int
+    $count: Int
+  ) {
+    getArticlesByCategorySlug(
+      input: { category_slug: $category_slug, page: $page, count: $count }
+    ) {
+      articles {
+        ...CoreArticleFields
+      }
+      pagination {
+        currentPage
+        lastPage
+      }
+    }
+  }
+`;

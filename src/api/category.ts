@@ -21,9 +21,10 @@ export const getCategories = async (): Promise<
 
   const categories = JSON.parse(
     JSON.stringify(
-      data.getCategories.map(({ name, ...rest }) => ({
+      data.getCategories.map(({ name, slug, ...rest }) => ({
         ...rest,
         name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+        slug: `/category${slug}`,
       }))
     )
   );

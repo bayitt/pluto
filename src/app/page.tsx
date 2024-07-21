@@ -15,8 +15,6 @@ export default async function Page() {
     is_active: true,
   };
 
-  console.log(categories);
-
   return (
     <>
       <Nav categories={categories} />
