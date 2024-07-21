@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { Sidebar } from "../Sidebar";
+import { Subscribe } from "../Subscribe";
 import { NavProps } from "./types";
 
 export const Nav: FC<NavProps> = ({ categories }) => {
@@ -133,7 +134,7 @@ export const Nav: FC<NavProps> = ({ categories }) => {
           handleOpen={setShowSidebar}
           categories={categories}
         />
-        {/* <Subscribe isOpen={isOpen} onClose={onClose} /> */}
+        <Subscribe isOpen={isOpen} onClose={onClose} />
       </Container>
     </Box>
   );

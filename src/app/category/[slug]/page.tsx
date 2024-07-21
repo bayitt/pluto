@@ -18,7 +18,7 @@ export default async function Page({
     articlesData,
   ]);
   const activeCategoryIndex = categories.findIndex(
-    ({ slug: category_slug }) => `/category${category_slug}` === slug
+    ({ slug: category_slug }) => category_slug === `/category/${slug}`
   );
   categories[activeCategoryIndex] = {
     ...categories[activeCategoryIndex],

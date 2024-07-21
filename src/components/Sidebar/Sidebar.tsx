@@ -3,7 +3,7 @@ import { Link } from "@chakra-ui/next-js";
 import { usePathname } from "next/navigation";
 import { Box, VStack, Button, useDisclosure } from "@chakra-ui/react";
 import { SidebarProps } from "./types";
-// import { Subscribe } from "..";
+import { Subscribe } from "../Subscribe";
 
 export const Sidebar: FC<SidebarProps> = ({ open, handleOpen, categories }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,7 +57,7 @@ export const Sidebar: FC<SidebarProps> = ({ open, handleOpen, categories }) => {
           handleOpen(false);
         }}
       />
-      {/* <Subscribe isOpen={isOpen} onClose={onClose} /> */}
+      <Subscribe isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };
