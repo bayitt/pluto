@@ -1,46 +1,49 @@
 import React, { FC, useState, useEffect } from "react";
 import { Modal } from "../Wrappers";
+import { useFormState } from "react-dom";
 import {
   Box,
   Text,
-  Button,
   FormControl,
   FormHelperText,
   Input,
 } from "@chakra-ui/react";
+import { Button } from "../Wrappers";
 import { SubscribeProps } from "./types";
+import { subscribe } from "./api";
 
 export const Subscribe: FC<SubscribeProps> = ({ isOpen, onClose }) => {
+  const [formState, formAction] = useFormState(subscribe, {
+    status: false,
+    message: "",
+  });
   const [email, setEmail] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [formCompleted, setFormCompleted] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setEmail("");
-      setIsSuccess(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (formState.status) {
+      setEmail("");
+      setFormCompleted(true);
+
+      setTimeout(() => {
+        setFormCompleted(false);
+      }, 4000);
+    }
+  }, [formState.status]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<any>) => {
-    event.preventDefault();
-
-    if (email.trim() === "") return;
-
-    const onSubscribe = () => {
-      setIsSuccess(true);
-      setEmail("");
-    };
-
-    // await subscribe(dispatch, { email }, onSubscribe);
-  };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="">
-      <Box as="form" onSubmit={handleSubmit}>
+      <Box as="form" action={formAction}>
         <Text mb={3}>
           Receive updates right in your inbox when new articles are published
         </Text>
@@ -53,19 +56,21 @@ export const Subscribe: FC<SubscribeProps> = ({ isOpen, onClose }) => {
             placeholder="Enter your email"
             _placeholder={{ fontWeight: "normal" }}
             border="1px solid"
-            borderColor="#A9B3CE"
-            focusBorderColor="#A9B3CE"
+            borderColor={"#A9B3CE"}
+            focusBorderColor={"#A9B3CE"}
           />
-          {isSuccess && (
-            <FormHelperText mt={3} color="gray.800">
-              You are subscribed successfully!
+          {formCompleted && formState.message && (
+            <FormHelperText
+              mt={3}
+              color={formState.status ? "gray.800" : "#FF0000"}
+            >
+              {formState.message}
             </FormHelperText>
           )}
         </FormControl>
         <Button
           width="100%"
           type="submit"
-          // isLoading={loading}
           loadingText="Subscribe"
           spinnerPlacement="end"
         >
