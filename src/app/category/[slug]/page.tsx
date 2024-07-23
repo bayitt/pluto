@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { Nav, Category } from "../../../components";
 import { getCategories, getCategoryArticles } from "../../../api";
+
+export const metadata: Metadata = {};
 
 export default async function Page({
   params: { slug },
