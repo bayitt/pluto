@@ -13,12 +13,8 @@ import { SubscribeProps } from "./types";
 import { subscribe } from "./api";
 
 export const Subscribe: FC<SubscribeProps> = ({ isOpen, onClose }) => {
-  const [formState, formAction] = useFormState(subscribe, {
-    status: false,
-    message: "",
-  });
   const [email, setEmail] = useState("");
-  const [formCompleted, setFormCompleted] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -26,24 +22,26 @@ export const Subscribe: FC<SubscribeProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (formState.status) {
-      setEmail("");
-      setFormCompleted(true);
-
-      setTimeout(() => {
-        setFormCompleted(false);
-      }, 4000);
-    }
-  }, [formState.status]);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
+  const handleSubmit = async (formData: FormData) => {
+    const message = await subscribe(formData);
+
+    if (message.includes("success")) {
+      setEmail("");
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    }
+
+    setMessage(message);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="">
-      <Box as="form" action={formAction}>
+      <Box as="form" action={handleSubmit}>
         <Text mb={3}>
           Receive updates right in your inbox when new articles are published
         </Text>
@@ -58,13 +56,14 @@ export const Subscribe: FC<SubscribeProps> = ({ isOpen, onClose }) => {
             border="1px solid"
             borderColor={"#A9B3CE"}
             focusBorderColor={"#A9B3CE"}
+            required
           />
-          {formCompleted && formState.message && (
+          {message && (
             <FormHelperText
               mt={3}
-              color={formState.status ? "gray.800" : "#FF0000"}
+              color={message.includes("success") ? "gray.800" : "#FF0000"}
             >
-              {formState.message}
+              {message}
             </FormHelperText>
           )}
         </FormControl>
