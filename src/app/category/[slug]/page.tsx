@@ -1,8 +1,18 @@
-import type { Metadata } from "next";
 import { Nav, Category } from "../../../components";
 import { getCategories, getCategoryArticles } from "../../../api";
+import { getMetaInformation } from "../../../utilities";
 
-export const metadata: Metadata = {};
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const categories = await getCategories();
+  const activeCategoryIndex = categories.findIndex(
+    ({ slug: category_slug }) => category_slug === `/category/${slug}`
+  );
+  return getMetaInformation(true, categories[activeCategoryIndex]);
+}
 
 export default async function Page({
   params: { slug },

@@ -1,5 +1,12 @@
 import { Nav, Category } from "../components";
 import { getCategories, getArticles } from "../api";
+import { getMetaInformation } from "../utilities";
+
+export async function generateMetadata() {
+  const categories = await getCategories();
+  const activeCategoryIndex = categories.findIndex(({ slug }) => slug === "/");
+  return getMetaInformation(true, categories[activeCategoryIndex]);
+}
 
 export default async function Page() {
   const categoriesData = getCategories();

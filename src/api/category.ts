@@ -2,20 +2,13 @@ import { TCategory } from "../models";
 import { getClient } from "./client";
 import { GET_CATEGORIES } from "./queries";
 
-const capitalize = (param: string) => {
-  const paramSplits = param
-    .split(" ")
-    .map(
-      (paramSlice) =>
-        paramSlice.charAt(0).toUpperCase() + paramSlice.slice(1).toLowerCase()
-    );
-  return paramSplits.join(" ");
-};
-
 export const getCategories = async (): Promise<
   (TCategory & { is_active?: boolean })[]
 > => {
-  const { data, errors } = await getClient().query({ query: GET_CATEGORIES });
+  const { data, errors } = await getClient().query({
+    query: GET_CATEGORIES,
+    context: { fetchOptions: { cache: "force-cache" } },
+  });
 
   if (!data?.getCategories || errors) return [];
 

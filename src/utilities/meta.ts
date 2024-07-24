@@ -5,6 +5,9 @@ export const getMetaInformation = (
   isCategoryPage: boolean,
   resource: TCategory | TArticle
 ): Metadata => {
+  const icons = {
+    icon: "https://res.cloudinary.com/olamileke/image/upload/v1678913345/noir/assets/favicon_zanzdl.png",
+  };
   const title = isCategoryPage
     ? (resource as TCategory)?.name === "All Articles"
       ? "Olamileke's Blog"
@@ -17,106 +20,33 @@ export const getMetaInformation = (
   const url =
     (process.env.APP_URL ?? "") +
     (resource?.slug?.startsWith("/") ? resource?.slug : "/" + resource?.slug);
-  //   const image =
-  //   const openGraph = { title, description, url, siteName: "Olamileke's Blog", images: [{  }] }
+  const image = isCategoryPage ? "" : (resource as TArticle)?.featured_image;
+  const openGraph = {
+    title,
+    description,
+    url,
+    siteName: "Olamileke's Blog",
+    images: [{ url: image, width: 800, height: 600 }],
+    type: "website",
+  };
+  const twitter = {
+    title,
+    description,
+    url,
+    creator: "@f_olamileke",
+    card: "summary_large_image",
+    images: [image],
+  };
 
-  const metas = [
-    {
-      name: "title",
-      value: isCategoryPage
-        ? (resource as TCategory)?.name === "All Articles"
-          ? "Olamileke's Blog"
-          : "Olamileke's Blog - " + (resource as TCategory)?.name
-        : (resource as TArticle)?.title,
-    },
-    {
-      name: "description",
-      value: isCategoryPage
-        ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content
-            ?.slice(0, 155)
-            ?.replace(/<[^>]+>/g, "") + "...",
-    },
-    {
-      name: "og:type",
-      value: "website",
-    },
-    {
-      name: "og:site_name",
-      value: "Olamileke's Blog",
-    },
-    {
-      name: "og:title",
-      value: isCategoryPage
-        ? (resource as TCategory)?.name
-        : (resource as TArticle)?.title,
-    },
-    {
-      name: "og:description",
-      value: isCategoryPage
-        ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content
-            ?.slice(0, 155)
-            ?.replace(/<[^>]+>/g, "") + "...",
-    },
-    {
-      name: "og:image",
-      value: isCategoryPage ? "" : (resource as TArticle)?.featured_image,
-    },
-    {
-      name: "og:url",
-      value:
-        (process.env.NEXT_PUBLIC_APP_URL ?? "") +
-        (resource?.slug?.startsWith("/")
-          ? resource?.slug
-          : "/" + resource?.slug),
-    },
-    {
-      name: "twitter:title",
-      value: isCategoryPage
-        ? (resource as TCategory)?.name
-        : (resource as TArticle)?.title,
-    },
-    {
-      name: "twitter:description",
-      value: isCategoryPage
-        ? (resource as TCategory)?.description
-        : (resource as TArticle)?.content
-            ?.slice(0, 155)
-            ?.replace(/<[^>]+>/g, "") + "...",
-    },
-    {
-      name: "twitter:image",
-      value: isCategoryPage ? "" : (resource as TArticle)?.featured_image,
-    },
-    {
-      name: "twitter:url",
-      value:
-        (process.env.NEXT_PUBLIC_APP_URL ?? "") +
-        resource?.slug?.startsWith("/")
-          ? resource?.slug
-          : "/" + resource?.slug,
-    },
-    {
-      name: "twitter:card",
-      value: "summary_large_image",
-    },
-    {
-      name: "twitter:site",
-      value: "@f_olamileke",
-    },
-  ];
+  const metadata: Metadata = { icons, title, description, openGraph, twitter };
 
-  if (!isCategoryPage) {
-    metas.push({
-      name: "article:published_time",
-      value: (resource as TArticle)?.created_at,
-    });
-    metas.push({
-      name: "article:modified_time",
-      value: (resource as TArticle)?.updated_at as string,
-    });
+  if (isCategoryPage) {
+    metadata["openGraph"] = {
+      ...metadata["openGraph"],
+      publishedTime: (resource as TArticle)?.created_at,
+      modifiedTime: (resource as TArticle)?.updated_at as string,
+    } as any;
   }
 
-  return {};
+  return metadata;
 };

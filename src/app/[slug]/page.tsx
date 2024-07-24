@@ -1,5 +1,15 @@
 import { ArticleContent } from "../../components";
 import { getCategories, getArticle } from "../../api";
+import { getMetaInformation } from "../../utilities";
+
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const article = await getArticle(slug);
+  return getMetaInformation(false, article);
+}
 
 export default async function Page({
   params: { slug },
