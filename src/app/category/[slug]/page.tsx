@@ -26,7 +26,7 @@ export default async function Page({
     count: 10,
   });
 
-  const [categories, { articles }] = await Promise.all([
+  const [categories, { articles, pagination }] = await Promise.all([
     categoriesData,
     articlesData,
   ]);
@@ -41,7 +41,7 @@ export default async function Page({
   return (
     <>
       <Nav categories={categories} />
-      <Category articles={articles} />
+      <Category articles={articles} pagination={pagination} />
     </>
   );
 }

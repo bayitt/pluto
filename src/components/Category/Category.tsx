@@ -1,14 +1,20 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { Box, Container, Button, Flex } from "@chakra-ui/react";
 import { Article } from "../Article";
 import { IndexArticle } from "../IndexArticle";
 import { CategoryProps } from "./types";
 
-export const Category: FC<CategoryProps> = ({ articles }) => {
+export const Category: FC<CategoryProps> = ({
+  articles,
+  pagination: initialPagination,
+}) => {
   const pathname = usePathname();
+  const { slug } = useParams<{ slug?: string }>();
+  const [pagination, setPagination] = useState(initialPagination);
   const isCategoryPage = pathname.includes("/category/");
 
   const renderArticles = () =>
@@ -27,19 +33,19 @@ export const Category: FC<CategoryProps> = ({ articles }) => {
         <Flex mt={{ base: 6, md: 8 }} gap={{ base: 5, md: 7 }} wrap="wrap">
           {renderArticles()}
         </Flex>
-        {/* {pagination && pagination?.currentPage < pagination?.lastPage && (
+        {pagination.currentPage < pagination.lastPage && (
           <Flex justify="center" mt={10} mb={2}>
             <Button
               variant="secondary"
               loadingText="More Articles"
-              isLoading={loading}
+              // isLoading={loading}
               spinnerPlacement="end"
-              onClick={getMoreArticles}
+              // onClick={getMoreArticles}
             >
               More Articles
             </Button>
           </Flex>
-        )} */}
+        )}
       </Container>
     </Box>
   );

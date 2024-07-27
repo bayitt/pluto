@@ -1,4 +1,4 @@
-import { TArticle } from "../models";
+import { TArticle, TPagination } from "../models";
 import { getClient } from "./client";
 import {
   GET_ARTICLE,
@@ -19,13 +19,14 @@ export const getArticle = async (slug: string): Promise<TArticle> => {
 export const getArticles = async (variables: {
   page: number;
   count: number;
-}): Promise<{ articles: TArticle[] }> => {
+}): Promise<{ articles: TArticle[]; pagination: TPagination }> => {
   const { data, errors } = await getClient().query({
     query: GET_ARTICLES,
     variables,
   });
 
-  if (!data?.getArticles || errors) return { articles: [] };
+  if (!data?.getArticles || errors)
+    return { articles: [], pagination: { currentPage: 1, lastPage: 1 } };
 
   return data?.getArticles;
 };
@@ -34,7 +35,7 @@ export const getCategoryArticles = async (variables: {
   category_slug: string;
   page: number;
   count: number;
-}) => {
+}): Promise<{ articles: TArticle[]; pagination: TPagination }> => {
   variables.category_slug = variables.category_slug.startsWith("/")
     ? variables.category_slug
     : "/" + variables.category_slug;
@@ -43,7 +44,8 @@ export const getCategoryArticles = async (variables: {
     variables,
   });
 
-  if (!data?.getArticlesByCategorySlug || errors) return { articles: [] };
+  if (!data?.getArticlesByCategorySlug || errors)
+    return { articles: [], pagination: { currentPage: 1, lastPage: 1 } };
 
   return data?.getArticlesByCategorySlug;
 };
