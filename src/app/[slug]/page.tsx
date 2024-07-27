@@ -1,5 +1,5 @@
 import { ArticleContent } from "../../components";
-import { getCategories, getArticle } from "../../api";
+import { getCategories, getArticle, getSitemapArticles } from "../../api";
 import { getMetaInformation } from "../../utilities";
 
 export async function generateMetadata({
@@ -9,6 +9,11 @@ export async function generateMetadata({
 }) {
   const article = await getArticle(slug);
   return getMetaInformation(false, article);
+}
+
+export async function generateStaticParams() {
+  const articles = await getSitemapArticles();
+  return articles.map(({ slug }) => ({ slug }));
 }
 
 export default async function Page({

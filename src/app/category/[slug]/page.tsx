@@ -14,6 +14,13 @@ export async function generateMetadata({
   return getMetaInformation(true, categories[activeCategoryIndex]);
 }
 
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories
+    .filter(({ slug }) => slug !== "/")
+    .map(({ slug }) => ({ slug: slug.split("/category")[1] }));
+}
+
 export default async function Page({
   params: { slug },
 }: {
