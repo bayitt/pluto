@@ -4,6 +4,7 @@ import {
   GET_ARTICLE,
   GET_ARTICLES,
   GET_ARTICLES_BY_CATEGORY_SLUG,
+  GET_SITEMAP_ARTICLES,
 } from "./queries";
 
 export const getArticle = async (slug: string): Promise<TArticle> => {
@@ -48,4 +49,16 @@ export const getCategoryArticles = async (variables: {
     return { articles: [], pagination: { currentPage: 1, lastPage: 1 } };
 
   return data?.getArticlesByCategorySlug;
+};
+
+export const getSitemapArticles = async (): Promise<
+  { slug: string; updated_at: string }[]
+> => {
+  const { data, errors } = await getClient().query({
+    query: GET_SITEMAP_ARTICLES,
+  });
+
+  if (!data?.getArticles || errors) return [];
+
+  return data?.getArticles?.articles;
 };

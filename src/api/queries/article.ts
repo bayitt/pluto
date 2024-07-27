@@ -1,5 +1,9 @@
 import { gql } from "@apollo/client";
-import { CORE_ARTICLE_FIELDS, EXTENDED_ARTICLE_FIELDS } from "../../models";
+import {
+  CORE_ARTICLE_FIELDS,
+  EXTENDED_ARTICLE_FIELDS,
+  SITEMAP_ARTICLE_FIELDS,
+} from "../../models";
 
 export const GET_ARTICLE = gql`
   ${CORE_ARTICLE_FIELDS}
@@ -43,6 +47,17 @@ export const GET_ARTICLES_BY_CATEGORY_SLUG = gql`
       pagination {
         currentPage
         lastPage
+      }
+    }
+  }
+`;
+
+export const GET_SITEMAP_ARTICLES = gql`
+  ${SITEMAP_ARTICLE_FIELDS}
+  query GqlGetArticles {
+    getArticles(input: { page: 1, count: 25 }) {
+      articles {
+        ...SitemapArticleFields
       }
     }
   }
