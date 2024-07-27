@@ -2,25 +2,41 @@
 
 import { FC, useState } from "react";
 import { useParams } from "next/navigation";
-import { usePathname } from "next/navigation";
 import { Box, Container, Button, Flex } from "@chakra-ui/react";
 import { Article } from "../Article";
 import { IndexArticle } from "../IndexArticle";
 import { CategoryProps } from "./types";
+import { fetchMoreArticles } from "./api";
 
 export const Category: FC<CategoryProps> = ({
-  articles,
+  articles: initialArticles,
   pagination: initialPagination,
 }) => {
-  const pathname = usePathname();
   const { slug } = useParams<{ slug?: string }>();
+  const [articles, setArticles] = useState(initialArticles);
   const [pagination, setPagination] = useState(initialPagination);
-  const isCategoryPage = pathname.includes("/category/");
+  const [loading, setLoading] = useState(false);
 
   const renderArticles = () =>
     articles
       .slice(1)
       .map((article, index) => <Article key={index} {...article} />);
+
+  const handleLoadMoreArticles = async () => {
+    setLoading(true);
+    const response = await fetchMoreArticles({
+      page: pagination.currentPage + 1,
+      slug,
+    });
+
+    if (response) {
+      const { articles: fetchedArticles, pagination } = response;
+      setArticles([...articles, ...fetchedArticles]);
+      setPagination(pagination);
+    }
+
+    setLoading(false);
+  };
 
   return (
     <Box>
@@ -38,9 +54,9 @@ export const Category: FC<CategoryProps> = ({
             <Button
               variant="secondary"
               loadingText="More Articles"
-              // isLoading={loading}
+              isLoading={loading}
               spinnerPlacement="end"
-              // onClick={getMoreArticles}
+              onClick={handleLoadMoreArticles}
             >
               More Articles
             </Button>
