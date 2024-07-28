@@ -6,7 +6,7 @@ export const getMetaInformation = (
   resource: TCategory | TArticle
 ): Metadata => {
   const icons = {
-    icon: "https://res.cloudinary.com/olamileke/image/upload/v1678913345/noir/assets/favicon_zanzdl.png",
+    icon: "https://res.cloudinary.com/olamileke/image/upload/v1722177338/noir/assets/noir_icon_ohve2g.png",
   };
   const title = isCategoryPage
     ? (resource as TCategory)?.name === "All Articles"

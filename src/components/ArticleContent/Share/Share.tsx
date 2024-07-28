@@ -5,6 +5,12 @@ import { HiMail } from "react-icons/hi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { ShareProps } from "./types";
 
+declare global {
+  interface Window {
+    __env__: { [key: string]: string };
+  }
+}
+
 export const Share: FC<ShareProps> = ({ title, slug }) => {
   const FacebookIcon = chakra(BsFacebook);
   const EmailIcon = chakra(HiMail);

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { ArticleContent } from "../../components";
 import { getCategories, getArticle, getSitemapArticles } from "../../api";
 import { getMetaInformation } from "../../utilities";
@@ -13,7 +14,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams() {
   const articles = await getSitemapArticles();
-  return articles.map(({ slug }) => ({ slug }));
+  return articles.map(({ slug }) => ({ slug: slug.slice(1) }));
 }
 
 export default async function Page({
@@ -28,6 +29,9 @@ export default async function Page({
     categoriesData,
     articleData,
   ]);
+
+  if (!article) return notFound();
+
   const activeCategoryIndex = categories.findIndex(
     ({ uuid }) => uuid === article.category.uuid
   );

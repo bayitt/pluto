@@ -9,12 +9,17 @@ import {
 
 export const getArticle = async (slug: string): Promise<TArticle> => {
   const parsedSlug = slug.startsWith("/") ? slug : "/" + slug;
-  const { data } = await getClient().query({
-    query: GET_ARTICLE,
-    variables: { slug: parsedSlug },
-  });
 
-  return data?.getArticle;
+  try {
+    const { data } = await getClient().query({
+      query: GET_ARTICLE,
+      variables: { slug: parsedSlug },
+    });
+
+    return data?.getArticle;
+  } catch {
+    return null;
+  }
 };
 
 export const getArticles = async (variables: {
@@ -40,15 +45,20 @@ export const getCategoryArticles = async (variables: {
   variables.category_slug = variables.category_slug.startsWith("/")
     ? variables.category_slug
     : "/" + variables.category_slug;
-  const { data, errors } = await getClient().query({
-    query: GET_ARTICLES_BY_CATEGORY_SLUG,
-    variables,
-  });
 
-  if (!data?.getArticlesByCategorySlug || errors)
+  try {
+    const { data, errors } = await getClient().query({
+      query: GET_ARTICLES_BY_CATEGORY_SLUG,
+      variables,
+    });
+
+    if (!data?.getArticlesByCategorySlug || errors)
+      return { articles: [], pagination: { currentPage: 1, lastPage: 1 } };
+
+    return data?.getArticlesByCategorySlug;
+  } catch {
     return { articles: [], pagination: { currentPage: 1, lastPage: 1 } };
-
-  return data?.getArticlesByCategorySlug;
+  }
 };
 
 export const getSitemapArticles = async (): Promise<

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Nav, Category } from "../../../components";
 import { getCategories, getCategoryArticles } from "../../../api";
 import { getMetaInformation } from "../../../utilities";
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
   const categories = await getCategories();
   return categories
     .filter(({ slug }) => slug !== "/")
-    .map(({ slug }) => ({ slug: slug.split("/category")[1] }));
+    .map(({ slug }) => ({ slug: slug.split("/category")[1].slice(1) }));
 }
 
 export default async function Page({
@@ -44,6 +45,8 @@ export default async function Page({
     ...categories[activeCategoryIndex],
     is_active: true,
   };
+
+  if (articles.length === 0) return notFound();
 
   return (
     <>
