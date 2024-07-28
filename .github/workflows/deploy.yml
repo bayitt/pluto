@@ -25,11 +25,11 @@ jobs:
             -H 'Authorization: Bearer ${{ secrets.NOTIFY_BEARER_TOKEN }}' \
             -H 'Content-Type: application/json' \
             -d '{"service":"Pluto", "step":"BUILD_START"}' 
+          touch .env
+          echo APP_URL=${{ secrets.APP_URL }} >> .env
+          echo NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }} >> .env
+          echo NOIR_URL=${{ secrets.NOIR_URL }} >> .env 
           docker build -t ${{ secrets.DOCKERHUB_REPO }} .
-        env:
-          APP_URL: ${{ secrets.APP_URL }}
-          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
-          NOIR_URL: ${{ secrets.NOIR_URL }}
       - name: Send out notification if application build is successful
         if: ${{ steps.build.conclusion == 'success' }}
         run: |
