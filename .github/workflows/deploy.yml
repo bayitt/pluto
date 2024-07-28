@@ -26,6 +26,10 @@ jobs:
             -H 'Content-Type: application/json' \
             -d '{"service":"Pluto", "step":"BUILD_START"}' 
           docker build -t ${{ secrets.DOCKERHUB_REPO }} .
+         env:
+          APP_URL: ${{ secrets.APP_URL }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+          NOIR_URL: ${{ secrets.NOIR_URL }}
       - name: Send out notification if application build is successful
         if: ${{ steps.build.conclusion == 'success' }}
         run: |
