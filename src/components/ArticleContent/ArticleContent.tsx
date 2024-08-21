@@ -104,6 +104,12 @@ export const ArticleContent: FC<ArticleContentProps> = ({
                 margin: "10px 0 !important",
               },
             },
+            "@media(max-width: 768px)": {
+              img: {
+                left: "0 !important",
+                width: "100% !important",
+              },
+            },
             h3: {
               fontSize: "20px",
             },
@@ -117,7 +123,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({
               display: "none",
             },
             a: {
-              color: "blue.500",
+              color: "blue.600",
               textDecoration: "underline",
             },
             pre: {
@@ -131,10 +137,8 @@ export const ArticleContent: FC<ArticleContentProps> = ({
             },
             img: {
               position: "relative",
-              left: "10%",
-              width: "80% !important",
-              height: { base: "300px !important", md: "400px !important" },
-              objectFit: "cover",
+              left: "25%",
+              width: "50%",
               margin: "20px 0px",
               borderRadius: "4px",
             },
