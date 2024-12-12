@@ -1,4 +1,5 @@
 import { TCategory } from "../models";
+import { capitalize } from "../utilities";
 import { getClient } from "./client";
 import { GET_CATEGORIES } from "./queries";
 
@@ -16,7 +17,7 @@ export const getCategories = async (): Promise<
     JSON.stringify(
       data.getCategories.map(({ name, slug, ...rest }) => ({
         ...rest,
-        name: name.charAt(0).toUpperCase() + name.slice(1).toLowerCase(),
+        name: capitalize(name),
         slug: `/category${slug}`,
       }))
     )
