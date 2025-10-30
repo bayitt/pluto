@@ -1,15 +1,9 @@
 import { FC } from "react";
 import NextLink from "next/link";
-import {
-  LinkBox,
-  LinkOverlay,
-  Text,
-  Image,
-  VStack,
-  HStack,
-} from "@chakra-ui/react";
+import { LinkBox, LinkOverlay, Text, VStack, HStack } from "@chakra-ui/react";
+import { Image } from "../Image";
 import { TArticle } from "../../models";
-import { parseTimestampString } from "../../utilities";
+import { parseDate } from "../../utilities";
 
 export const RelatedArticle: FC<TArticle> = ({
   title,
@@ -33,10 +27,13 @@ export const RelatedArticle: FC<TArticle> = ({
         width={{ base: "100%", md: "40%" }}
         height="150px"
         src={featured_image}
-        borderRadius="2px"
-        objectFit="cover"
       />
-      <VStack spacing={2} lineHeight="tall" alignItems="flex-start">
+      <VStack
+        spacing={2}
+        lineHeight="tall"
+        alignItems="flex-start"
+        width={{ base: "100%", md: "60%" }}
+      >
         <LinkOverlay
           as={NextLink}
           href={slug?.startsWith("/") ? slug : "/" + slug}
@@ -44,7 +41,7 @@ export const RelatedArticle: FC<TArticle> = ({
           <Text fontWeight="bold">{title}</Text>
         </LinkOverlay>
         <HStack>{renderTags()}</HStack>
-        <Text fontSize="sm">{parseTimestampString(created_at)}</Text>
+        <Text fontSize="sm">{parseDate(created_at)}</Text>
       </VStack>
     </LinkBox>
   );

@@ -1,3 +1,3 @@
 export * from "./meta";
-export * from "./time";
+export * from "./date";
 export * from "./string";

@@ -7,11 +7,11 @@ import {
   HStack,
   Badge,
   Text,
-  Image,
   Container,
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
+import { Image } from "../Image";
 import { Nav } from "../Nav";
 import Router from "next/router";
 import hljs from "highlight.js";
@@ -20,7 +20,7 @@ import php from "highlight.js/lib/languages/php";
 import "highlight.js/styles/atom-one-dark-reasonable.css";
 import { RelatedArticle } from "../RelatedArticle";
 import { Share } from "./Share";
-import { parseTimestampString } from "../../utilities";
+import { parseDate } from "../../utilities";
 import { ArticleContentProps } from "./types";
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("php", php);
@@ -73,9 +73,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({
             {title}
           </Text>
           <HStack>{renderTags()}</HStack>
-          <Text>
-            Fambegbe Olamileke. {parseTimestampString(created_at ?? "")}
-          </Text>
+          <Text>Fambegbe Olamileke. {parseDate(created_at ?? "")}</Text>
         </VStack>
       </Box>
       <Container
@@ -89,9 +87,7 @@ export const ArticleContent: FC<ArticleContentProps> = ({
         <Image
           src={featured_image}
           height={{ base: "30vh", md: "36vh", lg: "60vh" }}
-          objectFit="cover"
           width="100%"
-          borderRadius="4px"
         />
         <Box
           mt={5}
@@ -112,6 +108,9 @@ export const ArticleContent: FC<ArticleContentProps> = ({
             },
             h3: {
               fontSize: "20px",
+              position: "sticky",
+              top: 0,
+              background: "white",
             },
             p: {
               margin: "12px 0",
