@@ -1,5 +1,12 @@
+import { Work_Sans } from "next/font/google";
 import React from "react";
 import { Footer, Provider } from "../components";
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "600"],
+});
 
 export default async function RootLayout({
   children,
@@ -8,14 +15,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat&family=Work+Sans:wght@400;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>
+      <body className={workSans.className}>
         <Provider>
           {children}
           <Footer />

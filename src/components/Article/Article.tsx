@@ -1,7 +1,6 @@
 import { FC } from "react";
 import NextLink from "next/link";
 import {
-  Image,
   VStack,
   HStack,
   Badge,
@@ -9,8 +8,9 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
+import { Image } from "../Image";
 import { TArticle } from "../../models";
-import { parseTimestampString } from "../../utilities";
+import { parseDate } from "../../utilities";
 
 export const Article: FC<TArticle> = ({
   title,
@@ -34,13 +34,7 @@ export const Article: FC<TArticle> = ({
         lg: "calc((100% - 56px)/3)",
       }}
     >
-      <Image
-        src={featured_image}
-        height="220px"
-        width="100%"
-        objectFit="cover"
-        borderRadius="4px"
-      />
+      <Image src={featured_image} height="220px" width="100%" />
       <VStack alignItems="flex-start" mt={5} spacing={2}>
         <Badge bg={category.color} p={1}>
           {category.name}
@@ -59,7 +53,7 @@ export const Article: FC<TArticle> = ({
           </Text>
         </LinkOverlay>
         <HStack>{renderTags()}</HStack>
-        <Text>{parseTimestampString(created_at)}</Text>
+        <Text>{parseDate(created_at)}</Text>
       </VStack>
     </LinkBox>
   );
